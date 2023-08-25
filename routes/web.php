@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CapabilityController;
+use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +33,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::resources([
+    'admin/capabilities' => CapabilityController::class,
+    'admin/certifications' => CertificationController::class,
+    'admin/members' => MemberController::class,
+    'admin/others' => OtherController::Class,
+]);
