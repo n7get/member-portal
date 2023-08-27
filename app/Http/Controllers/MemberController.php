@@ -141,8 +141,8 @@ class MemberController extends Controller
         });
 
         return array_map(function ($value) {
-            if (array_key_exists('data', $value)) {
-                return ['data' => $value['data']];
+            if (array_key_exists('extra_info', $value)) {
+                return ['extra_info' => $value['extra_info']];
             }
             return [];
         }, $others);

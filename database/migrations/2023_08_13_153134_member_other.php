@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
             $table->foreignId('other_id')->constrained('others')->onDelete('cascade');
-            $table->string('data')->nullable();
+            $table->string('extra_info')->nullable();
         });
     }
 

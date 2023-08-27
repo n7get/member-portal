@@ -17,7 +17,7 @@ class OtherSeeder extends Seeder
     $others = array(
       [
         'description' => 'Operate CW',
-        'data' => true,
+        'needs_extra_info' => true,
         'prompt' => 'How many WPM?',
       ],
       [
@@ -28,7 +28,7 @@ class OtherSeeder extends Seeder
       ],
       [
         'description' => 'Employee/contractor of Served Agency',
-        'data' => true,
+        'needs_extra_info' => true,
         'prompt' => 'Served Agency?',
       ],
       [
@@ -36,7 +36,7 @@ class OtherSeeder extends Seeder
       ],
       [
         'description' => 'Other training',
-        'data' => true,
+        'needs_extra_info' => true,
       ],
       [
         'description' => 'RV Motorhome/RV Trailer/Boat/Aircraft',
@@ -52,22 +52,22 @@ class OtherSeeder extends Seeder
       ],
       [
         'description' => 'Other Equipment',
-        'data' => true,
+        'needs_extra_info' => true,
       ],
       [
         'description' => 'Other Skills/Restrictions/Preferences',
-        'data' => true,
+        'needs_extra_info' => true,
       ],
       [
         'description' => 'PC Operating System',
-        'data' => true,
+        'needs_extra_info' => true,
       ],
     );
 
     foreach ($others as $key => $other) {
       DB::table('others')->insert([
         'description' => $other['description'],
-        'data' => array_key_exists('data', $other) ? $other['data'] : false,
+        'needs_extra_info' => array_key_exists('needs_extra_info', $other) ? $other['needs_extra_info'] : false,
         'prompt' => array_key_exists('prompt', $other) ? $other['prompt'] : null,
         'order' => ($key + 1) * 10,
       ]);

@@ -23,7 +23,7 @@ class FormOther
       });
     } else {
       $this->others = $member->others->pluck('id')->map(function($id) use ($member) {
-        return array('id' => $id, 'data' => $member->others->find($id)?->pivot?->data);
+        return array('id' => $id, 'extra_info' => $member->others->find($id)?->pivot?->extra_info);
       })->toArray();
     }
   }
@@ -36,12 +36,12 @@ class FormOther
     return $this->find($id) !== null;
   }
 
-  public function data($id) {
+  public function extra_info($id) {
     $other = $this->find($id);
     if($other === null) {
       return null;
     }
-    return $other['data'];
+    return $other['extra_info'];
   }
 
   private function find($id) {

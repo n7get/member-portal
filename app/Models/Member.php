@@ -46,7 +46,7 @@ class Member extends Model
     }
 
     public function others() {
-        return $this->belongsToMany(Other::class)->withPivot('data');
+        return $this->belongsToMany(Other::class)->withPivot('extra_info');
     }
 
     public $timestamps = true; // If you want the created_at and updated_at timestamps to be handled automatically

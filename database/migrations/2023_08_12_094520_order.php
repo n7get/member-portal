@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('others', function (Blueprint $table) {
             $table->id();
             $table->string('description', 255);
-            $table->boolean('data')->default(false);
+            $table->boolean('needs_extra_info')->default(false);
             $table->string('prompt')->nullable();
             $table->integer('order');
         });

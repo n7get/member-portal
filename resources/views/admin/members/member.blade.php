@@ -169,11 +169,11 @@
           <input type="checkbox" id="others-{{ $other->id }}-id" name="others[{{ $other->id }}][id]" value="{{ $other->id }}" {{ $formOthers->has($other->id) ? 'checked' : '' }}>
           <label class="ml-2 block mt-0.5" for="others-{{ $other->id }}-id">{{ $other->description }}</label>
         </div>
-        @if($other->data)
+        @if($other->needs_extra_info)
           <div>
             <div>{{ $other->prompt }}</div>
             <div class="pb-1">
-              <input class="w-full sm:w-1/2" type="text" name="others[{{ $other->id }}][data]" value="{{ $formOthers->data($other->id) }}">
+              <input class="w-full sm:w-1/2" type="text" name="others[{{ $other->id }}][extra_info]" value="{{ $formOthers->extra_info($other->id) }}">
             </div>
           </div>
         @endif

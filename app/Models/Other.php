@@ -12,7 +12,7 @@ class Other extends Model
 
   protected $fillable = [
     'description',
-    'data',
+    'needs_extra_info',
     'prompt',
     'order',
   ];

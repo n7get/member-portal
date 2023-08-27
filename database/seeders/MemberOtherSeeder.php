@@ -16,9 +16,9 @@ class MemberOtherSeeder extends Seeder
     foreach ($members as $member) {
       $selectOthers = $others->random(rand(1, $others->count()));
       foreach($selectOthers as $o) {
-        if($o->data) {
+        if($o->needs_extra_info) {
           $member->others()->attach($o->id, [
-            'data' => 'fake',
+            'extra_info' => 'fake',
           ]);
         } else {
           $member->others()->attach($o->id);
