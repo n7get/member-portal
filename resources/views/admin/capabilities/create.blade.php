@@ -5,7 +5,7 @@
 
   <div>
     <x-create-form submit-route="{{ route('capabilities.store') }}" cancel-route="{{ route('capabilities.index') }}">
-      @include('admin.capabilities.capability')
+      @include('admin.capabilities.form')
     </x-create-form>
   </div>
 </x-app-layout>

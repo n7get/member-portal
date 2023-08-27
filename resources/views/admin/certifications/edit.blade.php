@@ -5,7 +5,7 @@
 
   <div>
     <x-edit-form submit-route="{{ route('certifications.update', $certification->id) }}" cancel-route="{{ route('certifications.index') }}">
-      @include('admin.certifications.certification')
+      @include('admin.certifications.form')
     </x-edit-form>
   </div>
 </x-app-layout>

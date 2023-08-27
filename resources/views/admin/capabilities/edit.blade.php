@@ -5,7 +5,7 @@
 
   <div>
     <x-edit-form submit-route="{{ route('capabilities.update', $capability->id) }}" cancel-route="{{ route('capabilities.index') }}">
-      @include('admin.capabilities.capability')
+      @include('admin.capabilities.form')
     </x-edit-form>
   </div>
 </x-app-layout>
