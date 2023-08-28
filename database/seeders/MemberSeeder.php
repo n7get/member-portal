@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Member;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class MemberSeeder extends Seeder
@@ -20,8 +20,14 @@ class MemberSeeder extends Seeder
             'W7AAA',
         );
 
-        foreach($callsigns as $callsign) {
+        $users = User::all();
+
+        foreach($callsigns as $key => $callsign) {
+            $user = $users[$key];
+            echo 'user: ' . $user->id;
+
             Member::factory()->create([
+                'user_id' => $user->id,
                 'callsign' => $callsign,
             ]);
         }

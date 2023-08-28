@@ -38,7 +38,6 @@ class MemberController extends Controller
             $member['expiration'] = date('Y-m-d', strtotime('+10 years'));
             $member['cellPhone'] = '800 555 1212';
             $member['cell_sms_carrier'] = 'who knows?';
-            $member['email'] = 'xyz@example.com';
         }
 
         return view('admin.members.create', [

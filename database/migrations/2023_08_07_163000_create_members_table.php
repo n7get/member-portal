@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->index('member_user_id');
             $table->string('first_name', 100);
             $table->string('last_name', 100);
             $table->string('mailing_address_street', 100)->nullable();
@@ -26,7 +27,6 @@ return new class extends Migration
             $table->string('gmrs_callsign', 10)->nullable();
             $table->string('cellPhone', 20);
             $table->string('cell_sms_carrier', 20);
-            $table->string('email', 50);
             $table->boolean('winlink_account')->default(false);
             $table->timestamps();
         });

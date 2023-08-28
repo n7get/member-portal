@@ -39,7 +39,6 @@ class MemberRequest extends FormRequest
             'gmrs_callsign' => ['max:10'],
             'cellPhone' => ['required', 'max:20'],
             'cell_sms_carrier' => ['required', 'max:20'],
-            'email' => ['required', 'max:50'],
         ];
     }
 }

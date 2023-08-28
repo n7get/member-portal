@@ -8,7 +8,6 @@
             <div class="border-b-2 sm:border-none mx-2 sm:flex">
                 <div class="basis-4/12 text-ellipsis overflow-hidden">{{ $member->first_name }}&nbsp;{{ $member->last_name }}</div>
                 <div class="basis-2/12">{{ $member->callsign }}</div>
-                <div class="basis-4/12 text-ellipsis overflow-hidden">{{ $member->email }}</div>
                 <div class="basis-2/12 flex justify-end">
                     <a href="{{ route('members.edit', $member->id) }}">
                         <x-edit-icon />

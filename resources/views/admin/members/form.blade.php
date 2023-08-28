@@ -96,20 +96,11 @@
   </div>
 </div>
 
-<div class="sm:flex">
-  <div class="mt-2 sm:basis-1/2">
-    <label for="email">Email:</label>
-    <div class="mt-1">
-      <input class="w-full" type="email" id="email" name="email" value="{{ old('email', $member->email) }}" autocomplete="email" required>
-    </div>
-  </div>
-
   <div class="flex items-center mt-2 sm:mt-10 sm:ml-4 sm:basis-1/2">
     <input type="hidden" name="winlink_account" value="0">
     <input type="checkbox" id="winlink_account" name="winlink_account" value="1" {{ old('winlink_account', $member->winlink_account) ? 'checked' : '' }}>
     <label class="ml-2 block mt-0.5" for="winlink_account" >Winlink account</label>
   </div>
-</div>
 
 <div class="mt-5 sm:flex sm:space-x-4">
   <div class="sm:basis-1/2">

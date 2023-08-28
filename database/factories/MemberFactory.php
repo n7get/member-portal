@@ -35,7 +35,6 @@ class MemberFactory extends Factory
             'gmrs_callsign' => $this->faker->optional()->text(10),
             'cellPhone' => $this->faker->phoneNumber,
             'cell_sms_carrier' => $this->faker->word,
-            'email' => $this->faker->unique()->safeEmail,
             'winlink_account' => $this->faker->boolean,
         ];
     }

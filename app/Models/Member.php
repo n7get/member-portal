@@ -25,7 +25,6 @@ class Member extends Model
         'gmrs_callsign',
         'cellPhone',
         'cell_sms_carrier',
-        'email',
         'winlink_account',
     ];
 
