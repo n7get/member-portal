@@ -20,25 +20,25 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'manage-resources']);
         Permission::create(['name' => 'access-resources']);
 
-        $adminRole = Role::create(['name' => 'Admin']);
+        $adminRole = Role::create(['name' => 'admin']);
         $adminRole->givePermissionTo([
             'manage-users',
         ]);
         
-        $loadershipRole = Role::create(['name' => 'Leadership']);
+        $loadershipRole = Role::create(['name' => 'leadership']);
         $loadershipRole->givePermissionTo([
             'manage-members',
             'manage-resources',
         ]);
 
-        $memberRole = Role::create(['name' => 'Member']);
+        $memberRole = Role::create(['name' => 'member']);
         $memberRole->givePermissionTo([
             'access-resources',
         ]);
 
         $admin = User::first();
-        $admin->assignRole('Admin');
-        $admin->assignRole('Leadership');
-        $admin->assignRole('Member');
+        $admin->assignRole('admin');
+        $admin->assignRole('leadership');
+        $admin->assignRole('member');
     }
 }

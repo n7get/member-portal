@@ -14,9 +14,9 @@
         @foreach($users as $user)
             <div class="border-b-2 sm:border-none mx-2 flex">
                 <div class="basis-1/12">
-                    {{ $user->hasRole('Admin') ? 'A' : '' }}
-                    {{ $user->hasRole('Leadership') ? 'L' : '' }}
-                    {{ $user->hasRole('Member') ? 'M' : '' }}
+                    {{ $user->hasRole('admin') ? 'A' : '' }}
+                    {{ $user->hasRole('leadership') ? 'L' : '' }}
+                    {{ $user->hasRole('member') ? 'M' : '' }}
                 </div>
                 <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->email }}</div>
                 <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->member ? ($user->member->first_name . ' ' . $user->member->last_name) : '' }}</div>
