@@ -13,22 +13,19 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        $callsigns = array(
-            'AA7A',
-            'K7AAA',
-            'N7AAA',
-            'W7AAA',
+        $testData = array(
+            ['K7AAA', User::where('email', 'user2@example.com')->first()->id, 'active'],
+            ['N7AAA', User::where('email', 'user3@example.com')->first()->id, 'pending'],
+            ['W7AAA', User::where('email', 'user4@example.com')->first()->id, 'inactive'],
         );
 
         $users = User::all();
 
-        foreach($callsigns as $key => $callsign) {
-            $user = $users[$key];
-            echo 'user: ' . $user->id;
-
+        foreach($testData as $data) {
             Member::factory()->create([
-                'user_id' => $user->id,
-                'callsign' => $callsign,
+                'callsign' => $data[0],
+                'user_id' => $data[1],
+                'status' => $data[2],
             ]);
         }
     }

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CapabilityMemberSeeder::class,
             CertificationMemberSeeder::class,
             MemberOtherSeeder::class,
+            RoleAndPermissionSeeder::class,
         ]);
     }
 }

@@ -1,0 +1,37 @@
+<x-app-layout>
+    <x-slot name="header">
+        <x-heading heading="Users" right-nav-route="users.create" />
+    </x-slot>
+
+    <div class="max-w-5xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
+        <div class="border-b-2 sm:border-none mx-2 flex">
+            <div class="font-bold basis-1/12 underline"></div>
+            <div class="font-bold basis-4/12 underline">Email</div>
+            <div class="font-bold basis-4/12 underline">Name</div>
+            <div class="font-bold basis-2/12 underline">Callsign</div>
+            <div class="font-bold basis-1/12"></div>
+        </div>
+        @foreach($users as $user)
+            <div class="border-b-2 sm:border-none mx-2 flex">
+                <div class="basis-1/12">
+                    {{ $user->hasRole('Admin') ? 'A' : '' }}
+                    {{ $user->hasRole('Leadership') ? 'L' : '' }}
+                    {{ $user->hasRole('Member') ? 'M' : '' }}
+                </div>
+                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->email }}</div>
+                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->member ? ($user->member->first_name . ' ' . $user->member->last_name) : '' }}</div>
+                <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->member ? $user->member->callsign : '' }}</div>
+                <div class="basis-1/12 flex justify-end">
+                    <a href="{{ route('users.edit', $user->id) }}">
+                        <x-edit-icon />
+                    </a>
+                    <div class="delete-user ml-2 cursor-pointer" data-url="{{ route('users.destroy', $user->id) }}" >
+                        <x-delete-icon />
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    <x-confirm-delete-modal open-modal-button-class="delete-user" type="user" />
+</x-app-layout>

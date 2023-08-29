@@ -34,6 +34,11 @@ class Member extends Model
         'expiration' => 'date',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // x_id is the foreign key in table y
+    }
+
     public function capabilities()
     {
         return $this->belongsToMany(Capability::class)->withPivot(['base', 'portable']);

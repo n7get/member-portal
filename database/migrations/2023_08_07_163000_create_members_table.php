@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->index('member_user_id');
+            $table->bigInteger('user_id')->unique('member_user_id');
+            $table->enum('status', ['pending', 'active', 'inactive'])->default('pending');
             $table->string('first_name', 100);
             $table->string('last_name', 100);
             $table->string('mailing_address_street', 100)->nullable();
