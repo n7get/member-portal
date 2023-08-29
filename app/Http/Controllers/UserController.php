@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User; 
-use Illuminate\Support\Facades\Hash;
+use App\Providers\UserProvider;
 
 class UserController extends Controller
 {
+    public function __construct(
+        protected UserProvider $userProvider,   
+    ) {}
+
     // Display a listing of the resource.
     public function index()
     {
@@ -18,13 +22,18 @@ class UserController extends Controller
     // Show the form for creating a new resource.
     public function create()
     {
-        return view('users.create');
+        $user = new User();
+
+        return view('users.create', $this->userProvider->populateModel($user));
     }
 
     // Store a newly created resource in storage.
     public function store(UserRequest $request)
     {
-        User::create($request->all());
+        $user = new User();
+    
+        $this->userProvider->persist($request, $user);
+    
         return redirect()->route('users.index')
             ->with('success', 'User created successfully.');
     }
@@ -38,42 +47,13 @@ class UserController extends Controller
     // Show the form for editing the specified resource.
     public function edit(User $user)
     {
-        return view('users.edit', [
-            'user' => $user,
-            'admin' => $user->hasRole('Admin'),
-            'leadership' => $user->hasRole('Leadership'),
-            'member' => $user->hasRole('Member'),
-        ]);
-
-        // return view('users.edit', compact('user'));
+        return view('users.edit', $this->userProvider->populateModel($user));
     }
 
     // Update the specified resource in storage.
     public function update(UserRequest $request, User $user)
     {
-        $data = $request->only(['name', 'email', 'email_verified_at', 'remember_token']);
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        $user->forceFill($data)->update();
-
-        
-        if ($request->admin) {
-            $user->assignRole('Admin');
-        } else {
-            $user->removeRole('Admin');
-        }
-        if ($request->leadership) {
-            $user->assignRole('Leadership');
-        } else {
-            $user->removeRole('Leadership');
-        }
-        if ($request->member) {
-            $user->assignRole('Member');
-        } else {
-            $user->removeRole('Member');
-        }
+        $this->userProvider->persist($request, $user);
 
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully.');
