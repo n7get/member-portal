@@ -11,15 +11,17 @@ use App\Models\Member;
 use App\Models\Other;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Illuminate\View\View;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
+        $this->authorize('index', Member::class);
+
         $members = Member::orderby('callsign')->get();
 
         return view('admin.members.index', compact('members'));
@@ -28,8 +30,10 @@ class MemberController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(Request $request): View
     {
+        $this->authorize('create', Member::class);
+
         $member = new Member();
         if(env('PREFILL_FORMS', false)) {
             $member['first_name'] = 'Alfred';
@@ -55,6 +59,8 @@ class MemberController extends Controller
      */
     public function store(MemberRequest $request): RedirectResponse
     {
+        $this->authorize('store', Member::class);
+
         $member = Member::create($request->all());
 
         if ($request->has('certifications')) {
@@ -73,8 +79,10 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Member $member)
+    public function show(Member $member): View
     {
+        $this->authorize('show', $member);
+        
         return view('admin.members.show', [
             'member' => $member,
             'capabilities' => Capability::orderby('order')->get(),
@@ -86,8 +94,10 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Member $member)
+    public function edit(Request $request, Member $member): View
     {
+        $this->authorize('edit', $member);
+
         return view('admin.members.edit', [
             'member' => $member,
             'capabilities' => Capability::orderBy('order')->get(),
@@ -101,8 +111,10 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(MemberRequest $request, Member $member)
+    public function update(MemberRequest $request, Member $member): RedirectResponse
     {
+        $this->authorize('update', $member);
+
         $member->update($request->all());
 
         if ($request->has('certifications')) {
@@ -121,8 +133,10 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Member $member)
+    public function destroy(Member $member): RedirectResponse
     {
+        $this->authorize('destroy', $member);
+        
         $member->delete();
 
         return redirect()->route('members.index');

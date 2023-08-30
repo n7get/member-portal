@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Member;
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class MemberPolicy
+{
+    use HandlesAuthorization;
+
+    public function index(User $user)
+    {
+        return $user->can('manage-members');
+    }
+
+    public function create(User $user)
+    {
+        return $user->can('manage-members');
+    }
+
+    public function store(User $user)
+    {
+        return $user->can('manage-members');
+    }
+
+    public function edit(User $user, Member $model)
+    {
+        if ($user->can('manage-members')) {
+            return true;
+        }
+        return $user->id === $model->user_id;
+    }
+
+    public function update(User $user, Member $model)
+    {
+        if ($user->can('manage-members')) {
+            return true;
+        }
+        return $user->id === $model->user_id;
+    }
+
+    public function destroy(User $user, Member $model)
+    {
+        if ($user->can('manage-members')) {
+            return true;
+        }
+        return $user->id === $model->user_id;
+    }
+}

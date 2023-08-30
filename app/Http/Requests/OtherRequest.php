@@ -28,7 +28,7 @@ class OtherRequest extends FormRequest
 
         return [
             'description' => ['required', 'string', 'max:255'],
-            'data' => 'required|boolean',
+            'needs_extra_info' => 'required|boolean',
             'prompt' => 'nullable|max:255',
             'order' => $orderRule,
         ];
