@@ -19,7 +19,7 @@
                     {{ $user->hasRole('member') ? 'M' : '' }}
                 </div>
                 <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->email }}</div>
-                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->member ? ($user->member->first_name . ' ' . $user->member->last_name) : '' }}</div>
+                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->name() }}</div>
                 <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->member ? $user->member->callsign : '' }}</div>
                 <div class="basis-1/12 flex justify-end">
                     <a href="{{ route('users.edit', $user->id) }}">

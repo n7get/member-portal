@@ -1,12 +1,5 @@
 <x-error-box />
 
-<div class="mt-2">
-  <label for="name">Name:</label>
-  <div class="mt-1">
-    <input class="w-full type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required>
-  </div>
-</div>
-
 <div class="mt-3">
   <label for="email">Email:</label>
   <div class="mt-1">

@@ -21,7 +21,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -45,6 +44,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function name(): string {
+        if ($this->member) {
+            return $this->member->first_name . ' ' . $this->member->last_name;  
+        }
+        if ($this->hasRole('admin')) {
+            return '(admin)';
+        }
+        if ($this->hasRole('leadership')) {
+            return '(leadership)';
+        }
+        if ($this->hasRole('member')) {
+            return '(member)';
+        }
+        return $this->email;
+    }
 
     public function member()
     {
