@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,7 +12,10 @@ class UserProvider extends ServiceProvider
 {
     public function __construct() {}
 
-    public function populateModel(User $user) 
+    /**
+     * Populate the model with the given attributes.
+     */
+    public function populateModel(User $user): array
     {
         return [
             'user' => $user,
@@ -21,6 +25,9 @@ class UserProvider extends ServiceProvider
         ];
     }
 
+    /**
+     * Persist the given request.
+     */
     public function persist(UserRequest $request, User $user): void
     {
         $data = $request->only(['name', 'email', 'email_verified_at', 'remember_token']);
@@ -37,6 +44,9 @@ class UserProvider extends ServiceProvider
         $this->setRoles($request, $user);
     }
 
+    /**
+     * Set the roles for the given request.
+     */
     public function setRoles(UserRequest $request, User $user): void
     {
         $roles = array_filter($request->only(['admin', 'leadership', 'member']), function($value) {
