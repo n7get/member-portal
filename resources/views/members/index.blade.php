@@ -7,7 +7,7 @@
         @foreach($members as $member)
             <div class="border-b-2 sm:border-none mx-2 sm:flex">
                 <div class="basis-4/12 text-ellipsis overflow-hidden">
-                    <a href="{{ route('users.show', $member->user_id) }}">{{ $member->first_name }}&nbsp;{{ $member->last_name }}</a>
+                    {{ $member->first_name }}&nbsp;{{ $member->last_name }}
                 </div>
                 <div class="basis-2/12">
                     <a href="{{ route('members.show', $member->id) }}">{{ $member->callsign }}</a>
