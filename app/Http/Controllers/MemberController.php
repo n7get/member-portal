@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\FormCapabilities;
 use App\Helpers\FormOther;
+use App\Http\Controllers\Traits\RedirectToPrevious;
 use App\Http\Requests\MemberRequest;
 use App\Models\Capability;
 use App\Models\Certification;
@@ -11,10 +12,13 @@ use App\Models\Member;
 use App\Models\Other;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\View\View;
 
 class MemberController extends Controller
 {
+    use RedirectToPrevious;
+
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +28,7 @@ class MemberController extends Controller
 
         $members = Member::orderby('callsign')->get();
 
-        return view('admin.members.index', compact('members'));
+        return view('members.index', compact('members'));
     }
 
     /**
@@ -44,7 +48,7 @@ class MemberController extends Controller
             $member['cell_sms_carrier'] = 'who knows?';
         }
 
-        return view('admin.members.create', [
+        return view('members.create', [
             'member' => $member,
             'capabilities' => Capability::orderby('order')->get(),
             'certifications' => Certification::orderby('order')->get(),
@@ -81,9 +85,9 @@ class MemberController extends Controller
      */
     public function show(Member $member): View
     {
-        $this->authorize('show', $member);
-        
-        return view('admin.members.show', [
+            $this->authorize('show', $member);
+
+        return view('members.show', [
             'member' => $member,
             'capabilities' => Capability::orderby('order')->get(),
             'certifications' => Certification::orderby('order')->get(),
@@ -98,7 +102,9 @@ class MemberController extends Controller
     {
         $this->authorize('edit', $member);
 
-        return view('admin.members.edit', [
+        $this->savePreviousRoute($request, $member->id);
+
+        return view('members.edit', [
             'member' => $member,
             'capabilities' => Capability::orderBy('order')->get(),
             'certifications' => Certification::orderby('order')->get(),
@@ -127,7 +133,8 @@ class MemberController extends Controller
 
         $member->others()->sync($this->filterAndMapOthers($request));
 
-        return redirect()->route('members.index');
+        return $this->redirectToPrevious($request, 'members.index', $member->id)
+            ->with('success', 'Member updated successfully.');
     }
 
     /**
@@ -140,6 +147,11 @@ class MemberController extends Controller
         $member->delete();
 
         return redirect()->route('members.index');
+    }
+
+    public function cancel(Request $request): RedirectResponse
+    {
+        return $this->redirectToPrevious($request, 'members.index');
     }
 
     private function filterCertifications($request) {

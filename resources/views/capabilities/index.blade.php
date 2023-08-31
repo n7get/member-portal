@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-heading heading="Members Capabilities" right-nav-route="capabilities.create" />
+        <x-heading-create heading="Members Capabilities" right-nav-route="capabilities.create" />
     </x-slot>
 
     <div class="max-w-sm sm:pt-4 sm:pb-2 mx-auto bg-white border-t">

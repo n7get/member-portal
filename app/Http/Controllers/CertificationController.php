@@ -14,7 +14,7 @@ class CertificationController extends Controller
         $this->authorize('any', Certification::class);
 
         $certifications = Certification::orderby('order')->get();
-        return view('admin.certifications.index', compact('certifications'));
+        return view('certifications.index', compact('certifications'));
     }
 
     public function create(): View
@@ -24,7 +24,7 @@ class CertificationController extends Controller
         $certification = new Certification();
         $certification->order = Certification::max('order') + 10;
         
-        return view('admin.certifications.create', compact('certification'));
+        return view('certifications.create', compact('certification'));
     }
 
     public function store(CertificationRequest $request): RedirectResponse
@@ -39,14 +39,14 @@ class CertificationController extends Controller
     {
         $this->authorize('any', Certification::class);
 
-        return view('admin.certifications.show', compact('certification'));
+        return view('certifications.show', compact('certification'));
     }
 
     public function edit(Certification $certification): View
     {
         $this->authorize('any', Certification::class);
 
-        return view('admin.certifications.edit', compact('certification'));
+        return view('certifications.edit', compact('certification'));
     }
 
     public function update(CertificationRequest $request, Certification $certification): RedirectResponse

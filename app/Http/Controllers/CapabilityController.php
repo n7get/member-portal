@@ -16,7 +16,7 @@ class CapabilityController extends Controller
         $this->authorize('any', Capability::class);
 
         $capabilities = Capability::orderby('order')->get();
-        return view('admin.capabilities.index', compact('capabilities'));
+        return view('capabilities.index', compact('capabilities'));
     }
 
     public function create(): View
@@ -26,7 +26,7 @@ class CapabilityController extends Controller
         $capability = new Capability();
         $capability->order = Capability::max('order') + 10;
         
-        return view('admin.capabilities.create', compact('capability'));
+        return view('capabilities.create', compact('capability'));
     }
 
     public function store(CapabilityRequest $request): RedirectResponse
@@ -41,14 +41,14 @@ class CapabilityController extends Controller
     {
         $this->authorize('any', Capability::class);
 
-        return view('admin.capabilities.show', compact('capability'));
+        return view('capabilities.show', compact('capability'));
     }
 
     public function edit(Capability $capability): View
     {
         $this->authorize('any', Capability::class);
 
-        return view('admin.capabilities.edit', compact('capability'));
+        return view('capabilities.edit', compact('capability'));
     }
 
     public function update(CapabilityRequest $request, Capability $capability): RedirectResponse

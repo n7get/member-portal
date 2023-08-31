@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-heading heading="Members Certifications" right-nav-route="certifications.create" />
+        <x-heading-create heading="Members Certifications" right-nav-route="certifications.create" />
     </x-slot>
 
     <div class="max-w-sm sm:pt-4 sm:pb-2 mx-auto bg-white border-t">

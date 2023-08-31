@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-heading heading="Users" right-nav-route="users.create" />
+        <x-heading-create heading="Users" right-nav-route="users.create" />
     </x-slot>
 
     <div class="max-w-5xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
@@ -18,9 +18,19 @@
                     {{ $user->hasRole('leadership') ? 'L' : '' }}
                     {{ $user->hasRole('member') ? 'M' : '' }}
                 </div>
-                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->email }}</div>
-                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->name() }}</div>
-                <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->member ? $user->member->callsign : '' }}</div>
+                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">
+                    <a href="{{ route('users.show', $user->id) }}">{{ $user->email }}</a>
+                </div>
+                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">
+                    <a href="{{ route('users.show', $user->id) }}">{{ $user->first_name }}&nbsp;{{ $user->last_name }}</a>
+                </div>
+                <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">
+                    @if ($user->member)
+                        <a href="{{ route('members.show', $user->member->id) }}">
+                            {{ $user->member->callsign }}
+                        </a>
+                    @endif
+                </div>
                 <div class="basis-1/12 flex justify-end">
                     <a href="{{ route('users.edit', $user->id) }}">
                         <x-edit-icon />

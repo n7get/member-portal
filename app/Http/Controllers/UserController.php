@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\RedirectToPrevious;
 use App\Http\Requests\UserRequest;
 use App\Models\User; 
 use App\Providers\UserProvider;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    use RedirectToPrevious;
+
     public function __construct(
         protected UserProvider $userProvider,   
     ) {}
@@ -49,13 +53,17 @@ class UserController extends Controller
     // Display the specified resource.
     public function show(User $user): View
     {
+        $this->authorize('show', $user);
+        
         return view('users.show', compact('user'));
     }
 
     // Show the form for editing the specified resource.
-    public function edit(User $user): View
+    public function edit(Request $request, User $user): View
     {
         $this->authorize('edit', $user);
+
+        $this->savePreviousRoute($request, $user->id);
 
         return view('users.edit', $this->userProvider->populateModel($user));
     }
@@ -67,7 +75,7 @@ class UserController extends Controller
 
         $this->userProvider->persist($request, $user);
 
-        return redirect()->route('users.index')
+        return $this->redirectToPrevious($request, 'users.index', $user->id)
             ->with('success', 'User updated successfully.');
     }
 
@@ -79,5 +87,10 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully.');
+    }
+
+    public function cancel(Request $request): RedirectResponse
+    {
+        return $this->redirectToPrevious($request, 'users.index');
     }
 }

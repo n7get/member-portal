@@ -25,6 +25,14 @@ class MemberPolicy
         return $user->can('manage-members');
     }
 
+    public function show(User $user, Member $model)
+    {
+        if ($user->can('manage-members')) {
+            return true;
+        }
+        return $user->id === $model->user_id;
+    }
+
     public function edit(User $user, Member $model)
     {
         if ($user->can('manage-members')) {

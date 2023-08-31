@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <x-heading heading="Other skills and equipment that you would agree to use"
+    <x-heading-create heading="Other skills and equipment that you would agree to use"
       right-nav-route="others.create" />
   </x-slot>
 

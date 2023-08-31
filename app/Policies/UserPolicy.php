@@ -23,6 +23,14 @@ class UserPolicy
         return $user->can('manage-users');
     }
 
+    public function show(User $user, User $model)
+    {
+        if ($user->can('manage-users')) {
+            return true;
+        }
+        return $user->id === $model->id;
+    }
+
     public function edit(User $user, User $model)
     {
         if ($user->can('manage-users')) {

@@ -14,7 +14,7 @@ class OtherController extends Controller
     $this->authorize('any', Other::class);
 
     $others = Other::orderby('order')->get();
-    return view('admin.others.index', compact('others'));
+    return view('others.index', compact('others'));
   }
 
   public function create(): View
@@ -24,7 +24,7 @@ class OtherController extends Controller
     $other = new Other();
     $other->order = Other::max('order') + 10;
 
-    return view('admin.others.create', compact('other'));
+    return view('others.create', compact('other'));
   }
 
   public function store(OtherRequest $request): RedirectResponse
@@ -39,14 +39,14 @@ class OtherController extends Controller
   {
     $this->authorize('any', Other::class);
 
-    return view('admin.others.show', compact('other'));
+    return view('others.show', compact('other'));
   }
 
   public function edit(Other $other): View
   {
     $this->authorize('any', Other::class);
 
-    return view('admin.others.edit', compact('other'));
+    return view('others.edit', compact('other'));
   }
 
   public function update(OtherRequest $request, Other $other): RedirectResponse
