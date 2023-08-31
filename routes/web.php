@@ -38,6 +38,7 @@ Route::middleware('auth')->controller(MemberController::class)->group(function()
     Route::get('members', 'index')->name('members.index');
     Route::post('members', 'store')->name('members.store');
     Route::get('members/cancel', 'cancel')->name('members.cancel');
+    Route::get('members/create/{user}', 'create')->name('members.create-for-user');
     Route::get('members/create', 'create')->name('members.create');
     Route::get('members/{member}', 'show')->name('members.show');
     Route::put('members/{member}', 'update')->name('members.update');

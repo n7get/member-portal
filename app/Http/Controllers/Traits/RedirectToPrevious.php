@@ -12,7 +12,7 @@ trait RedirectToPrevious
    * param Request $request
    * param int $id
    */
-  protected function savePreviousRoute(Request $request, int $id): void
+  protected function savePreviousRoute(Request $request, int $id = null): void
   {
     $previousRouteName = app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
     $request->session()->flash('previousRouteName', $previousRouteName);

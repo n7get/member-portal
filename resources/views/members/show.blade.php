@@ -5,8 +5,9 @@
 
   <div class="max-w-5xl sm:mt-4 sm:pb-2 mx-auto bg-white border-t">
     <div>
-      <div class="bg-gray-300 px-2 py-3 mt-2">
-        Basic Information
+      <div class="flex justify-between bg-gray-300 px-2 py-3">
+        <div>Basic Information</div>
+        <div class="ml-2 mr-2">{{ $member->status }}</div>
       </div>
       <div class="ml-2">
         <div class="flex">

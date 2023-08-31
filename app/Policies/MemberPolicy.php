@@ -15,16 +15,6 @@ class MemberPolicy
         return $user->can('manage-members');
     }
 
-    public function create(User $user)
-    {
-        return $user->can('manage-members');
-    }
-
-    public function store(User $user)
-    {
-        return $user->can('manage-members');
-    }
-
     public function show(User $user, Member $model)
     {
         if ($user->can('manage-members')) {

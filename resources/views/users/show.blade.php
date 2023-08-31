@@ -10,17 +10,25 @@
         <div class="ml-2">{{ $user->name() }}</div>
       </div>
       <div class="flex mt-2">
-          <div>Callsign:</div>
-          <div class="ml-2">
-            @role('admin')
-              <a href="{{ route('members.show', $user->member->id) }}" class="text-blue-500">
-            @endrole
-                {{ $user->member->callsign }}
-            @role('admin')
-              </a>
-            @endrole
-          </div>
+        <div>Callsign:</div>
+        <div class="ml-2">
+          @role('admin')
+            <a href="{{ route('members.show', $user->member->id) }}" class="text-blue-500">
+          @endrole
+              {{ $user->member->callsign }}
+          @role('admin')
+            </a>
+          @endrole
         </div>
+      </div>
+      <div class="flex mt-2">
+        <div>Status:</div>
+        <div class="ml-2">{{ $user->member->status }}</div>
+      </div>
+    @else
+        <a href="{{ route('members.create-for-user', $user->id) }}">
+          <x-primary-button>Create member</x-primary-button>
+        </a>
     @endif
     <div class="flex mt-2">
       <div>Email:</div>

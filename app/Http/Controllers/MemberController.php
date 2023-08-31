@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\FormCapabilities;
-use App\Helpers\FormOther;
 use App\Http\Controllers\Traits\RedirectToPrevious;
 use App\Http\Requests\MemberRequest;
 use App\Models\Capability;
 use App\Models\Certification;
 use App\Models\Member;
 use App\Models\Other;
+use App\Models\User;
+use App\Providers\MemberProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -18,6 +18,11 @@ use Illuminate\View\View;
 class MemberController extends Controller
 {
     use RedirectToPrevious;
+
+    public function __construct(
+        protected MemberProvider $memberProvider,
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
@@ -34,9 +39,19 @@ class MemberController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request): View
+    public function create(Request $request, User $user): View
     {
-        $this->authorize('create', Member::class);
+        if ($request->user()->member) {
+            return view('members.show', $request->user()->member, ['member' => $request->user()->member]);
+        }
+
+        if ($user->id) {
+            $request->session()->put('user_id', $user->id);
+            $this->savePreviousRoute($request, $user->id);
+        } else {
+            $request->session()->put('user_id', $request->user()->id);
+            $this->savePreviousRoute($request, $request->user()->id);
+        }
 
         $member = new Member();
         if(env('PREFILL_FORMS', false)) {
@@ -48,14 +63,7 @@ class MemberController extends Controller
             $member['cell_sms_carrier'] = 'who knows?';
         }
 
-        return view('members.create', [
-            'member' => $member,
-            'capabilities' => Capability::orderby('order')->get(),
-            'certifications' => Certification::orderby('order')->get(),
-            'others' => Other::orderby('order')->get(),
-            'formCapabilities' => new FormCapabilities($request, $member),
-            'formOthers' => new FormOther($request, $member),
-        ]);
+        return view('members.create', $this->memberProvider->populateModel($request, $member));
     }
 
     /**
@@ -63,21 +71,18 @@ class MemberController extends Controller
      */
     public function store(MemberRequest $request): RedirectResponse
     {
-        $this->authorize('store', Member::class);
-
-        $member = Member::create($request->all());
-
-        if ($request->has('certifications')) {
-            $member->certifications()->sync(array_keys($this->filterCertifications($request)));
+        if ($request->user()->member) {
+            return redirect()->route('members.show', $request->user()->member);
         }
 
-        $member->capabilities()->sync($request->input('capabilities', []));
+        $member = new Member();
+        $member->user_id = $$request->session()->get('user_id');
 
-        $member->others()->sync($this->filterAndMapOthers($request));
+        $this->memberProvider->persist($request, $member);
 
-        $member->save();
-
-        return redirect()->route('members.index');
+        $request->session()->remove('user_id');
+        return $this->redirectToPrevious($request, 'members.index')
+            ->with('success', 'Member created successfully.');
     }
 
     /**
@@ -85,7 +90,7 @@ class MemberController extends Controller
      */
     public function show(Member $member): View
     {
-            $this->authorize('show', $member);
+        $this->authorize('show', $member);
 
         return view('members.show', [
             'member' => $member,
@@ -104,14 +109,7 @@ class MemberController extends Controller
 
         $this->savePreviousRoute($request, $member->id);
 
-        return view('members.edit', [
-            'member' => $member,
-            'capabilities' => Capability::orderBy('order')->get(),
-            'certifications' => Certification::orderby('order')->get(),
-            'others' => Other::orderby('order')->get(),
-            'formCapabilities' => new FormCapabilities($request, $member),
-            'formOthers' => new FormOther($request, $member),
-        ]);
+        return view('members.edit', $this->memberProvider->populateModel($request, $member));
     }
 
     /**
@@ -121,17 +119,7 @@ class MemberController extends Controller
     {
         $this->authorize('update', $member);
 
-        $member->update($request->all());
-
-        if ($request->has('certifications')) {
-            $member->certifications()->sync(array_keys($this->filterCertifications($request)));
-        } else {
-            $member->certifications()->detach();
-        }
-
-        $member->capabilities()->sync($request->input('capabilities', []));
-
-        $member->others()->sync($this->filterAndMapOthers($request));
+        $this->memberProvider->persist($request, $member);
 
         return $this->redirectToPrevious($request, 'members.index', $member->id)
             ->with('success', 'Member updated successfully.');
@@ -152,24 +140,5 @@ class MemberController extends Controller
     public function cancel(Request $request): RedirectResponse
     {
         return $this->redirectToPrevious($request, 'members.index');
-    }
-
-    private function filterCertifications($request) {
-        return array_filter($request->certifications, function ($value) {
-            return $value == "1";
-        });
-    }
-
-    private function filterAndMapOthers($request) {
-        $others = array_filter($request->others, function ($value) {
-            return array_key_exists('id', $value);
-        });
-
-        return array_map(function ($value) {
-            if (array_key_exists('extra_info', $value)) {
-                return ['extra_info' => $value['extra_info']];
-            }
-            return [];
-        }, $others);
     }
 }

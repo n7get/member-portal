@@ -5,13 +5,36 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+    @if ($user->needsMember())
+        <div class="max-w-3xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
+            <div class="flex justify-center text-red-800">
+                <x-exclamation-icon class="h-6 w-6" />
+                <div class="ml-2">
+                    You staii need to submit a membership application.
                 </div>
             </div>
+            <div class="flex justify-center mt-4">
+                <x-primary-button>
+                    <a href="{{ route('members.create') }}">
+                        Click here to get started.
+                    </a>
+                </x-primary-button>
+            </div>
         </div>
-    </div>
+    @endif
+
+    @role('admin')
+        <x-dashboard-admin :user="$user" />
+    @endrole
+
+    @role('leadership')
+        <x-dashboard-leadership
+            :pendingMembers="$pendingMembers"
+            :user="$user"
+        />
+    @endrole
+
+    @role('member')
+        <x-dashboard-member :user="$user" />
+    @endrole
 </x-app-layout>

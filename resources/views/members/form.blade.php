@@ -1,5 +1,18 @@
 <x-error-box />
 
+<div class="flex justify-between bg-gray-300 px-2 py-3">
+  <div>Basic information</div>
+  @role('leadership')
+  <div>
+    <select name="status" id="status" class="ml-2 py-0">
+      <option value="pending" {{ old('status', $member->status) == 'pending' ? 'selected' : '' }}>Pending</option>
+      <option value="active" {{ old('status', $member->status) == 'active' ? 'selected' : '' }}>Active</option>
+      <option value="inactive" {{ old('status', $member->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
+    </select>
+  </div>
+  @endrole
+</div>
+
 <div class="mt-2">
   <label for="first_name">First Name:</label>
   <div class="mt-1">
@@ -96,11 +109,11 @@
   </div>
 </div>
 
-  <div class="flex items-center mt-2 sm:mt-10 sm:ml-4 sm:basis-1/2">
-    <input type="hidden" name="winlink_account" value="0">
-    <input type="checkbox" id="winlink_account" name="winlink_account" value="1" {{ old('winlink_account', $member->winlink_account) ? 'checked' : '' }}>
-    <label class="ml-2 block mt-0.5" for="winlink_account" >Winlink account</label>
-  </div>
+<div class="flex items-center mt-2 sm:mt-4 sm:ml-4 sm:basis-1/2">
+  <input type="hidden" name="winlink_account" value="0">
+  <input type="checkbox" id="winlink_account" name="winlink_account" value="1" {{ old('winlink_account', $member->winlink_account) ? 'checked' : '' }}>
+  <label class="ml-2 block mt-0.5" for="winlink_account" >Winlink account</label>
+</div>
 
 <div class="mt-5 sm:flex sm:space-x-4">
   <div class="sm:basis-1/2">

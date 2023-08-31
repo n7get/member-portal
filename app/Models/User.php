@@ -61,6 +61,16 @@ class User extends Authenticatable
         return $this->email;
     }
 
+    function needsMember(): bool {
+        if ($this->member) {
+            return false;
+        }
+        if ($this->hasRole('admin') || $this->hasRole('leadership')) {
+            return false;
+        }
+        return true;
+    }
+
     public function member()
     {
         return $this->hasOne(Member::class, 'user_id'); // x_id is the foreign key in table y

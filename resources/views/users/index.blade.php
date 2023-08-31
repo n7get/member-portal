@@ -21,9 +21,7 @@
                 <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">
                     <a href="{{ route('users.show', $user->id) }}">{{ $user->email }}</a>
                 </div>
-                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">
-                    <a href="{{ route('users.show', $user->id) }}">{{ $user->first_name }}&nbsp;{{ $user->last_name }}</a>
-                </div>
+                <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $user->name() }}</div>
                 <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">
                     @if ($user->member)
                         <a href="{{ route('members.show', $user->member->id) }}">
