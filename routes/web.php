@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CapabilityController;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\ProfileController;
@@ -20,12 +21,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,26 +34,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Route::prefix('/admin')->middleware('auth')->controller(CapabilityController::class)->group(function() {
-//     Route::get('capabilities', 'index')->name('capabilities.index');
-//     Route::post('capabilities', 'store')->name('capabilities.store');
-//     Route::get('capabilities/cancel', 'cancel')->name('capabilities.cancel');
-//     Route::get('capabilities/create', 'create')->name('capabilities.create');
-//     Route::get('capabilities/{capability}', 'show')->name('capabilities.show');
-//     Route::put('capabilities/{capability}', 'update')->name('capabilities.update');
-//     Route::delete('capabilities/{capability}', 'destroy')->name('capabilities.destroy');
-//     Route::get('capabilities/{capability}/edit', 'edit')->name('capabilities.edit');
-// });
-// Route::prefix('/admin')->middleware('auth')->controller(CertificationController::class)->group(function() {
-//     Route::get('certifications', 'index')->name('certifications.index');
-//     Route::post('certifications', 'store')->name('certifications.store');
-//     Route::get('certifications/cancel', 'cancel')->name('certifications.cancel');
-//     Route::get('certifications/create', 'create')->name('certifications.create');
-//     Route::get('certifications/{certification}', 'show')->name('certifications.show');
-//     Route::put('certifications/{certification}', 'update')->name('certifications.update');
-//     Route::delete('certifications/{certification}', 'destroy')->name('certifications.destroy');
-//     Route::get('certifications/{certification}/edit', 'edit')->name('certifications.edit');
-// });
 Route::middleware('auth')->controller(MemberController::class)->group(function() {
     Route::get('members', 'index')->name('members.index');
     Route::post('members', 'store')->name('members.store');
