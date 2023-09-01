@@ -41,8 +41,8 @@
         <div class="flex mt-4">
           <div>Callsign:</div>
           <div class="ml-2">{{ $member->callsign }}</div>
-          <div class="ml-4">Expiration:</div>
-          <div class="ml-2">{{ $member->expiration }}</div>
+          <div class="ml-4">License Expiration:</div>
+          <div class="ml-2">{{ $member->expiration->format('m/d/y') }}</div>
         </div>
         @endif
         @if ($member->gmrs_callsign)

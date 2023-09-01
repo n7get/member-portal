@@ -74,7 +74,7 @@
   <div class="mt-2 sm:ml-4 sm:basis-1/4">
     <label for="expiration">Expiration:</label>
     <div class="mt-1">
-      <input class="w-full" type="text" id="expiration" name="expiration" placeholder="MM/DD/YY" value="{{ old('expiration', $member->expiration) }}" required>
+      <input class="w-full" type="text" id="expiration" name="expiration" placeholder="MM/DD/YY" value="{{ old('expiration', $member->expiration->format('m/d/y')) }}" required>
     </div>
   </div>
 

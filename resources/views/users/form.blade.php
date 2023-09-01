@@ -9,7 +9,7 @@
 
 <div class="mt-3">
   <label for="email_verified_at">Email verified at:</label>
-  <input class="w-full" type="datetime" id="email_verified_at" name="email_verified_at" value="{{ old('email_verified_at', $user->email_verified_at) }}">
+  <input class="w-full" type="text" id="email_verified_at" name="email_verified_at" value="{{ old('email_verified_at', $user->email_verified_at) }}">
 </div>
 
 <div class="mt-3">
@@ -55,3 +55,30 @@
   <input type="checkbox" id="member" name="member" value="1" {{ old('member', $member) ? 'checked' : '' }}>
   <label class="ml-2 block mt-0.5" for="member" >Member</label>
 </div>
+
+@push('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputElement = document.getElementById('email_verified_at');
+
+    inputElement.addEventListener('click', function() {
+        if (this.value === '') {
+          const now = new Date();
+
+          const date = [
+            now.getUTCMonth() + 1, // Months are zero-based
+            now.getUTCDate(),
+            now.getUTCFullYear().toString().substr(-2) // Last two digits of the year
+          ].join('/');
+
+          const time = [
+            now.getUTCHours(),
+            now.getUTCMinutes(),
+            now.getUTCSeconds()
+          ].join(':');
+          event.target.value = `${date} ${time}`;
+        }
+    });
+  });
+</script>
+@endpush
