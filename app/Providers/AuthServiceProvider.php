@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
-use App\Models\Member;
-use App\Policies\MemberPolicy;
+use App\Models\members\Capability;
+use App\Models\members\Certification;
+use App\Models\members\Member;
+use App\Models\members\Other;
+use App\Policies\members\CapabilityPolicy;
+use App\Policies\members\CertificationPolicy;
+use App\Policies\members\MemberPolicy;
+use App\Policies\members\OtherPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider

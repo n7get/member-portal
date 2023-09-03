@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Member;
-use App\Models\Other;
+use App\Models\members\Member;
+use App\Models\members\Other;
 
 class MemberOtherSeeder extends Seeder
 {

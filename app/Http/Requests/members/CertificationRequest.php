@@ -1,12 +1,10 @@
 <?php
 
-// CapabilityRequest.php
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\members;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CapabilityRequest extends FormRequest
+class CertificationRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,8 +14,8 @@ class CapabilityRequest extends FormRequest
     public function rules()
     {
         $orderRule = ['required', 'integer'];
-        if (request()->routeIs('capabilities.store')) {
-            array_push($orderRule, 'unique:capabilities');
+        if (request()->routeIs('certifications.store')) {
+            array_push($orderRule, 'unique:certifications');
         }
     
         return [

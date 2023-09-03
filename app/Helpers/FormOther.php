@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Models\Member;
+use App\Models\members\Member;
 use Illuminate\Http\Request;
 
 /*

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\members;
 
-use App\Models\Other;
-use App\Http\Requests\OtherRequest;
+use App\Http\Controllers\Controller;
+use App\Models\members\Other;
+use App\Http\Requests\members\OtherRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

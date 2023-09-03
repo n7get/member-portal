@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\members;
 
-use App\Models\Other;
+use App\Models\members\Other;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 

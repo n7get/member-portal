@@ -2,10 +2,11 @@
 
 // CapabilityController.php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\members;
 
-use App\Models\Capability;
-use App\Http\Requests\CapabilityRequest;
+use App\Http\Controllers\Controller;
+use App\Models\members\Capability;
+use App\Http\Requests\members\CapabilityRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

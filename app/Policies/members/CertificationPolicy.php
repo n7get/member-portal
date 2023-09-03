@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\members;
 
-use App\Models\Certification;
+use App\Models\members\Certification;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 

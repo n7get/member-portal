@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Member;
-use App\Models\Certification;
+use App\Models\members\Member;
+use App\Models\members\Certification;
 
 class CertificationMemberSeeder extends Seeder
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\members;
 
-use App\Models\Member;
+use App\Models\members\Member;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MemberFactory extends Factory

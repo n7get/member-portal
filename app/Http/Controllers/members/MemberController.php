@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\members;
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\RedirectToPrevious;
-use App\Http\Requests\MemberRequest;
-use App\Models\Capability;
-use App\Models\Certification;
-use App\Models\Member;
-use App\Models\Other;
+use App\Http\Requests\members\MemberRequest;
+use App\Models\members\Capability;
+use App\Models\members\Certification;
+use App\Models\members\Member;
+use App\Models\members\Other;
 use App\Models\User;
-use App\Providers\MemberProvider;
+use App\Providers\members\MemberProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\View\View;
 
 class MemberController extends Controller

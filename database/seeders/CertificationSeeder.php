@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Certification;
+use App\Models\members\Certification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 

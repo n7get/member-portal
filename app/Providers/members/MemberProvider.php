@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Providers;
+namespace App\Providers\members;
 
 use App\Helpers\FormCapabilities;
 use App\Helpers\FormOther;
-use App\Models\Capability;
-use App\Models\Certification;
-use App\Models\Member;
-use App\Models\Other;
+use App\Models\members\Capability;
+use App\Models\members\Certification;
+use App\Models\members\Member;
+use App\Models\members\Other;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

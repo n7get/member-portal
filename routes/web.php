@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\CapabilityController;
-use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\members\CapabilityController;
+use App\Http\Controllers\members\CertificationController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\OtherController;
+use App\Http\Controllers\members\MemberController;
+use App\Http\Controllers\members\OtherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;

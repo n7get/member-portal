@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\members;
 
-use App\Http\Requests\CertificationRequest;
-use App\Models\Certification;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\members\CertificationRequest;
+use App\Models\members\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

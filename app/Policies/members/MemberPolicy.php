@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\members;
 
-use App\Models\Member;
+use App\Models\members\Member;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
