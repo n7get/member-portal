@@ -32,7 +32,9 @@
     @endif
     <div class="flex mt-2">
       <div>Email:</div>
-      <div class="ml-2">{{ $user->email }}</div>
+      <div class="ml-2 cursor-pointer">
+        <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+      </div>
     </div>
     <div class="flex mt-2">
       <div>Email verified at:</div>
