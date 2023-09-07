@@ -16,14 +16,16 @@
             {{ $member->last_name }}
           </div>
         </div>
-        <div>{{ $member->mailing_address_street }}</div>
-        <div class="flex">
-          <div>{{ $member->mailing_address_city }}</div>,
-          <div>{{ $member->mailing_address_state }}</div>
-          <div class="ml-2">{{ $member->mailing_address_zip }}</div>
-        </div>
-        @if ($member->part_year_nv_resident)
-          <div>Is part year NV resident</div>
+        @if ($member->hasAddress())
+          <div>{{ $member->mailing_address_street }}</div>
+          <div class="flex">
+            <div>{{ $member->mailing_address_city }}</div>,
+            <div>{{ $member->mailing_address_state }}</div>
+            <div class="ml-2">{{ $member->mailing_address_zip }}</div>
+          </div>
+          @if ($member->part_year_nv_resident)
+            <div>Is part year NV resident</div>
+          @endif
         @endif
         <div class="flex mt-4">
           <div>Email:</div>

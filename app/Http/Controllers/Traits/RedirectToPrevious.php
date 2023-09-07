@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Traits;
+
+use App\Helpers\PreviousRoute;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,9 +16,19 @@ trait RedirectToPrevious
    */
   protected function savePreviousRoute(Request $request, int $id = null): void
   {
-    $previousRouteName = app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
-    $request->session()->flash('previousRouteName', $previousRouteName);
-    $request->session()->flash('previousRouteId', $id);
+    $currentRoute = Route::currentRouteName();
+
+    $previousRoute = $request->session()->pull('previousRoute');
+    if($previousRoute && $previousRoute->getInitialRoute() == $currentRoute) {
+        $request->session()->put('previousRoute', $previousRoute);
+        return;
+    }
+
+    $name = app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
+    
+    $previousRoute = new PreviousRoute($name, $id, $currentRoute);
+    
+    $request->session()->put('previousRoute', $previousRoute);    
   }
 
   /**
@@ -27,9 +39,10 @@ trait RedirectToPrevious
    * return RedirectResponse
    */
   protected function redirectToPrevious(Request $request, string $routeName, int $id = null): RedirectResponse {
-    if ($request->session()->has('previousRouteName')) {
-        $routeName = $request->session()->get('previousRouteName');
-        $id = $request->session()->get('previousRouteId');
+    $previousRoute = $request->session()->pull('previousRoute');
+    if($previousRoute) {
+        $routeName = $previousRoute->getName();
+        $id = $previousRoute->getId();
     }
 
     $route = Route::getRoutes()->getByName($routeName);

@@ -34,6 +34,11 @@ class Member extends Model
         'expiration' => 'date',
     ];
 
+    public function hasAddress(): bool
+    {
+        return $this->mailing_address_street && $this->mailing_address_city && $this->mailing_address_state && $this->mailing_address_zip;
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // x_id is the foreign key in table y
