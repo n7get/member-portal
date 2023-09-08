@@ -46,16 +46,16 @@ class Member extends Model
 
     public function capabilities()
     {
-        return $this->belongsToMany(Capability::class)->withPivot(['base', 'portable']);
+        return $this->belongsToMany(Capability::class, 'members_member_capabilities')->withPivot(['base', 'portable']);
     }
 
     public function certifications()
     {
-        return $this->belongsToMany(Certification::class);
+        return $this->belongsToMany(Certification::class, 'members_member_certifications');
     }
 
     public function others() {
-        return $this->belongsToMany(Other::class)->withPivot('extra_info');
+        return $this->belongsToMany(Other::class, 'members_member_others')->withPivot('extra_info');
     }
 
     public $timestamps = true; // If you want the created_at and updated_at timestamps to be handled automatically

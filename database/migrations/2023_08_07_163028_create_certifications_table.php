@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('certifications', function (Blueprint $table) {
+        Schema::create('member_certifications', function (Blueprint $table) {
             $table->id();
             $table->string('description', 255);
             $table->integer('order');
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('certifications');
+        Schema::dropIfExists('member_certifications');
     }
 };

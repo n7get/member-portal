@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Other extends Model
 {
-  protected $table = 'others';
+  protected $table = 'member_others';
 
   protected $fillable = [
     'description',
@@ -17,7 +17,7 @@ class Other extends Model
 
   public function members()
   {
-    return $this->belongsToMany(Member::class);
+    return $this->belongsToMany(Member::class, 'members_member_others');
   }
 
   public $timestamps = false; // Indicates that the table doesn't have created_at and updated_at timestamps

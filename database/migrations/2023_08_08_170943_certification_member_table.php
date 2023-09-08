@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('certification_member', function (Blueprint $table) {
+        Schema::create('members_member_certifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
-            $table->foreignId('certification_id')->constrained('certifications')->onDelete('cascade');
+            $table->foreignId('certification_id')->constrained('member_certifications')->onDelete('cascade');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('certification_member');
+        Schema::dropIfExists('members_member_certifications');
     }
 };

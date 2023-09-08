@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('capability_member', function (Blueprint $table) {
+        Schema::create('members_member_capabilities', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('member_id');
             $table->unsignedBigInteger('capability_id');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('portable')->default(false);
 
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
-            $table->foreign('capability_id')->references('id')->on('capabilities')->onDelete('cascade');
+            $table->foreign('capability_id')->references('id')->on('member_capabilities')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('capability_member');
+        Schema::dropIfExists('members_member_capabilities');
     }
 };

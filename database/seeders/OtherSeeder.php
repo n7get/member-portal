@@ -64,7 +64,7 @@ class OtherSeeder extends Seeder
     );
 
     foreach ($others as $key => $other) {
-      DB::table('others')->insert([
+      DB::table('member_others')->insert([
         'description' => $other['description'],
         'needs_extra_info' => array_key_exists('needs_extra_info', $other) ? $other['needs_extra_info'] : false,
         'prompt' => array_key_exists('prompt', $other) ? $other['prompt'] : null,
