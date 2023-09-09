@@ -17,6 +17,7 @@
                     {{ $user->hasRole('admin') ? 'A' : '' }}
                     {{ $user->hasRole('leadership') ? 'L' : '' }}
                     {{ $user->hasRole('member') ? 'M' : '' }}
+                    {{ $user->hasRole('resources') ? 'R' : '' }}
                 </div>
                 <div class="basis-4/12 text-ellipsis overflow-hidden whitespace-nowrap">
                     <a href="{{ route('users.show', $user->id) }}">{{ $user->email }}</a>

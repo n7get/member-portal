@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('mime_type');
-            $table->enum('type', ['public', 'member', 'leadership']);
+            $table->enum('access', ['public', 'member', 'leadership']);
             $table->longText('data');
             $table->timestamps();
         });

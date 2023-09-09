@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\members\MemberController;
 use App\Http\Controllers\members\OtherController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\resources\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController:
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->resource('capabilities', CapabilityController::class);
+Route::middleware('auth')->resource('categories', CategoryController::class);
 Route::middleware('auth')->resource('certifications', CertificationController::class);
 Route::middleware('auth')->resource('others', OtherController::class);
 

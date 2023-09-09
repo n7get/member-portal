@@ -14,12 +14,12 @@ class Files extends Model
     protected $fillable = [
       'name',
       'description',
-      'type',
+      'access',
       'data',
     ];
 
     public function categories()
     {
-      return $this->belongsToMany(Categories::class, 'resources_categories_files');
+      return $this->belongsToMany(Category::class, 'resources_categories_files');
     }
 }

@@ -55,6 +55,9 @@ class User extends Authenticatable
         if ($this->hasRole('leadership')) {
             return '(leadership)';
         }
+        if ($this->hasRole('resources')) {
+            return '(resources)';
+        }
         if ($this->hasRole('member')) {
             return '(member)';
         }
@@ -65,7 +68,7 @@ class User extends Authenticatable
         if ($this->member) {
             return false;
         }
-        if ($this->hasRole('admin') || $this->hasRole('leadership')) {
+        if ($this->hasRole('admin') || $this->hasRole('leadership') || $this->hasRole('resources')) {
             return false;
         }
         return true;

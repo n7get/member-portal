@@ -31,6 +31,11 @@ class RoleAndPermissionSeeder extends Seeder
             'manage-resources',
         ]);
 
+        $resourcesRole = Role::create(['name' => 'resources']);
+        $resourcesRole->givePermissionTo([
+            'manage-resources',
+        ]);
+
         $memberRole = Role::create(['name' => 'member']);
         $memberRole->givePermissionTo([
             'access-resources',
@@ -39,6 +44,7 @@ class RoleAndPermissionSeeder extends Seeder
         $admin = User::first();
         $admin->assignRole('admin');
         $admin->assignRole('leadership');
+        $admin->assignRole('resources');
         $admin->assignRole('member');
     }
 }
