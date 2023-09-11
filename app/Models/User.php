@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\members\Member;
+use App\Models\resources\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -74,8 +75,13 @@ class User extends Authenticatable
         return true;
     }
 
+    public function files()
+    {
+        return $this->hasMany(File::class, 'user_id');
+    }
+
     public function member()
     {
-        return $this->hasOne(Member::class, 'user_id'); // x_id is the foreign key in table y
+        return $this->hasOne(Member::class, 'user_id');
     }
 }

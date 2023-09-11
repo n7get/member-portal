@@ -56,6 +56,12 @@
   <label class="ml-2 block mt-0.5" for="member" >Member</label>
 </div>
 
+<div class="flex items-center mt-3">
+  <input type="hidden" name="resources" value="0">
+  <input type="checkbox" id="resources" name="resources" value="1" {{ old('resources', $resources) ? 'checked' : '' }}>
+  <label class="ml-2 block mt-0.5" for="resources" >Resources</label>
+</div>
+
 @push('scripts')
 <script>
   document.addEventListener('DOMContentLoaded', function() {

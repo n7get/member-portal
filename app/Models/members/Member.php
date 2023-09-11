@@ -41,7 +41,7 @@ class Member extends Model
     
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); // x_id is the foreign key in table y
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function capabilities()

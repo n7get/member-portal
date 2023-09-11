@@ -1,4 +1,10 @@
-<form action="{{ $submitRoute }}" method="post">
+@props([
+    'enctype' => 'application/x-www-form-urlencoded',
+    'cancelRoute',
+    'submitRoute',
+])
+
+<form action="{{ $submitRoute }}" method="post" enctype="{{ $enctype }}">
     @csrf
     {{ method_field('PUT') }}
     <div class="py-2 px-2">

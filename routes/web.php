@@ -7,6 +7,7 @@ use App\Http\Controllers\members\MemberController;
 use App\Http\Controllers\members\OtherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resources\CategoryController;
+use App\Http\Controllers\resources\FileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->resource('capabilities', CapabilityController::class);
 Route::middleware('auth')->resource('categories', CategoryController::class);
 Route::middleware('auth')->resource('certifications', CertificationController::class);
+Route::middleware('auth')->resource('files', FileController::class);
 Route::middleware('auth')->resource('others', OtherController::class);
 
 Route::middleware('auth')->group(function () {
