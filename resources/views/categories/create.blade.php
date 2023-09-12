@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-heading-create heading="Create New New Category" \/>
+        <x-heading-create heading="Create New Category" \/>
     </x-slot>
 
   <div class="max-w-sm sm:pt-4 sm:pb-2 mx-auto bg-white border-t">

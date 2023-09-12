@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             CertificationMemberSeeder::class,
             MemberOtherSeeder::class,
             RoleAndPermissionSeeder::class,
-            ResourceCategory::class,
-            ResourceFile::class,
+            ResourceCategorySeeder::class,
+            ResourceFileSeeder::class,
+            ResourcesCategoriesFilesSeeder::class,
         ]);
     }
 }

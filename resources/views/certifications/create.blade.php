@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-      <x-heading-create heading="Create New New Certification" />
+      <x-heading-create heading="Create New Certification" />
   </x-slot>
 
   <div class="max-w-sm sm:pt-4 sm:pb-2 mx-auto bg-white border-t">

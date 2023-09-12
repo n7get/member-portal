@@ -8,6 +8,7 @@ use App\Http\Controllers\members\OtherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resources\CategoryController;
 use App\Http\Controllers\resources\FileController;
+use App\Http\Controllers\resources\ResourceFilesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,13 @@ require __DIR__.'/auth.php';
 
 Route::middleware('auth')->resource('capabilities', CapabilityController::class);
 Route::middleware('auth')->resource('categories', CategoryController::class);
+Route::middleware('auth')->controller(ResourceFilesController::class)->group(function () {
+    Route::get('categories/{category}/files/create', 'create')->name('categories.files.create');
+    Route::post('categories/{category}/files', 'store')->name('categories.files.store');
+    Route::get('categories/{category}/files/{file}/edit', 'edit')->name('categories.files.edit');
+    Route::put('categories/{category}/files/{file}', 'update')->name('categories.files.update');
+    Route::delete('categories/{category}/files/{file}', 'destroy')->name('categories.files.destroy');
+});
 Route::middleware('auth')->resource('certifications', CertificationController::class);
 Route::middleware('auth')->resource('files', FileController::class);
 Route::middleware('auth')->resource('others', OtherController::class);

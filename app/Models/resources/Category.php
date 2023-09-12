@@ -19,6 +19,6 @@ class Category extends Model
 
   public function files()
   {
-    return $this->belongsToMany(File::class, 'resources_categories_files');
+    return $this->belongsToMany(File::class, 'resources_categories_files')->withPivot('order')->orderBy('order');
   }
 }

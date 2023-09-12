@@ -23,7 +23,7 @@ class File extends Model
 
   public function categories()
   {
-    return $this->belongsToMany(Category::class, 'resources_categories_files');
+    return $this->belongsToMany(Category::class, 'resources_categories_files')->withPivot('order');
   }
 
   public function user()

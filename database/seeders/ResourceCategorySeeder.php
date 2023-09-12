@@ -6,7 +6,7 @@ use App\Models\resources\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ResourceCategory extends Seeder
+class ResourceCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.

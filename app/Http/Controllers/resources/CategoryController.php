@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\resources;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\RedirectToPrevious;
 use App\Http\Requests\resources\CategoryRequest;
 use App\Models\resources\Category;
+use App\Models\resources\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -37,6 +39,13 @@ class CategoryController extends Controller
 
     Category::create($request->validated());
     return redirect()->route('categories.index');
+  }
+
+  public function show(Category $category): View
+  {
+    $this->authorize('view', $category);
+
+    return view('categories.show', compact('category'));
   }
 
   public function edit(Category $category): View

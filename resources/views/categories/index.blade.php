@@ -13,7 +13,9 @@
     </div>
     @foreach($categories as $category)
       <div class="border-b-2 sm:border-none mx-2 flex">
-        <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">{{ $category->name }}</div>
+        <div class="basis-2/12 text-ellipsis overflow-hidden whitespace-nowrap">
+          <a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a>
+        </div>
         <div class="basis-4/12 ml-3 text-ellipsis overflow-hidden whitespace-nowrap">{{ $category->description }}</div>
         <div class="basis-2/12 ml-3">{{ $category->access }}</div>
         <div class="basis-2/12 text-center">{{ $category->order }}</div>
