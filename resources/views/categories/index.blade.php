@@ -21,7 +21,7 @@
         <div class="basis-2/12 text-center">{{ $category->order }}</div>
         <div class="basis-2/12 flex justify-end">
           <a href="{{ route('categories.edit', $category->id) }}">
-            <x-edit-icon />
+            <x-icons.edit />
           </a>
           <div class="delete-category ml-2 cursor-pointer" data-url="{{ route('categories.destroy', $category->id) }}" >
             <x-icons.delete />

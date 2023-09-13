@@ -32,7 +32,7 @@
                 </div>
                 <div class="basis-1/12 flex justify-end">
                     <a href="{{ route('users.edit', $user->id) }}">
-                        <x-edit-icon />
+                        <x-icons.edit />
                     </a>
                     <div class="delete-user ml-2 cursor-pointer" data-url="{{ route('users.destroy', $user->id) }}" >
                         <x-icons.delete />

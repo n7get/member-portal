@@ -5,7 +5,7 @@
     @if($attributes->has('right-nav-route'))
         <div class="ml-2">
             <a href="{{ route($rightNavRoute, $rightNavId) }}">
-                <x-edit-icon />
+                <x-icons.edit />
             </a>
         </div>
     @endif

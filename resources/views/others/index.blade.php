@@ -26,7 +26,7 @@
         <div class="basis-1/12 text-center">{{ $other->order }}</div>
         <div class="basis-1/12 flex justify-end">
             <a href="{{ route('others.edit', $other->id) }}">
-                <x-edit-icon />
+                <x-icons.edit />
             </a>
             <div class="delete-other ml-2 cursor-pointer" data-url="{{ route('others.destroy', $other->id) }}" >
                 <x-icons.delete />

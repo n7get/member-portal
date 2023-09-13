@@ -58,7 +58,7 @@
         <div class="basis-1/12">{{ $file->version }}</div>
         <div class="basis-1/12 flex gap-2 justify-end">
           <a href="{{ route('categories.files.edit', [$category, $file]) }}">
-            <x-edit-icon />
+            <x-icons.edit />
           </a>
           <div class="delete-category-file cursor-pointer" data-url="{{ route('categories.files.destroy', [$category, $file]) }}" >
             <x-icons.delete />

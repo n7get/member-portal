@@ -15,7 +15,7 @@
                 <div class="basis-2/12 text-center">{{ $capability->order }}</div>
                 <div class="basis-2/12 flex justify-end">
                     <a href="{{ route('capabilities.edit', $capability->id) }}">
-                        <x-edit-icon />
+                        <x-icons.edit />
                     </a>
                     <div class="delete-capability ml-2 cursor-pointer" data-url="{{ route('capabilities.destroy', $capability->id) }}" >
                         <x-icons.delete />

@@ -15,7 +15,7 @@
                 <div class="basis-2/12 text-center">{{ $certification->order }}</div>
                 <div class="basis-2/12 flex justify-end">
                     <a href="{{ route('certifications.edit', $certification->id) }}">
-                        <x-edit-icon />
+                        <x-icons.edit />
                     </a>
                     <div class="delete-certification ml-2 cursor-pointer" data-url="{{ route('certifications.destroy', $certification->id) }}" >
                         <x-icons.delete />

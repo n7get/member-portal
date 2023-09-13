@@ -21,7 +21,7 @@
         <div class="basis-1/12 ml-3">{{ $file->access }}</div>
         <div class="basis-1/12 flex justify-end">
           <a href="{{ route('files.edit', $file->id) }}">
-            <x-edit-icon />
+            <x-icons.edit />
           </a>
           <div class="delete-file ml-2 cursor-pointer" data-url="{{ route('files.destroy', $file->id) }}" >
             <x-icons.delete />
