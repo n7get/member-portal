@@ -35,7 +35,7 @@
       <div>Resource Files</div>
       <div class="ml-2">
         <a href="{{ route('categories.files.create', $category->id) }}">
-          <x-plus-icon />
+          <x-icons.plus />
         </a>
       </div>
     </div>

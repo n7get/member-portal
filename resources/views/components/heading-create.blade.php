@@ -5,7 +5,7 @@
     @if($attributes->has('right-nav-route'))
         <div class="">
             <a href="{{ route($rightNavRoute) }}">
-                <x-plus-icon />
+                <x-icons.plus />
             </a>
         </div>
     @endif
