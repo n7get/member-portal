@@ -35,6 +35,6 @@
 <div class="mt-3">
   <label for="data">File Upload</label>
   <div class="mt-1">
-    <input type="file" id="data" name="data" required>
+    <input type="file" id="data" name="data">
   </div>
 </div>

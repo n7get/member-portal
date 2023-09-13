@@ -30,11 +30,15 @@
     @role('leadership')
         <x-dashboard-leadership
             :pendingMembers="$pendingMembers"
+            :leadershipResources="$leadershipResources"
             :user="$user"
         />
     @endrole
 
     @role('member')
-        <x-dashboard-member :user="$user" />
+        <x-dashboard-member
+            :memberResources="$memberResources"
+            :user="$user"
+        />
     @endrole
 </x-app-layout>

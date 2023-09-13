@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\members\MemberProvider::class,
         App\Providers\resources\FileProvider::class,
+        App\Providers\resources\ResourceFilesProvider::class,
         App\Providers\UserProvider::class,
     ])->toArray(),
 

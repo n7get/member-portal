@@ -18,8 +18,11 @@ class FileRequest extends FormRequest
             'description' => ['required', 'string'],
             'version' => ['required', 'string'],
             'access' => ['required', 'in:public,member,leadership'],
-            'data' => ['required'],
         ];
+        
+        if(request()->routeIs('files.store')) {
+            $rules['data'] = ['required'];
+        }
 
         if (request()->routeIs('files.store')) {
             array_push($rules['name'], 'unique:resources_files,name');

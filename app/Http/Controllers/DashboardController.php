@@ -3,23 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\members\Member;
+use App\Providers\resources\ResourceFilesProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    public function __construct(protected ResourceFilesProvider $resourceFilesProvider)
+    {
+    }
+
     public function index()
     {
         $user = Auth::user();
-        $data = ['user' => $user];
 
         if ($user->hasRole('leadership')) {
-            $this->populateLeadership($user, $data);
+            $pendingMembers = Member::where('status', 'pending')->get();
+            $leadershipResources = $this->resourceFilesProvider->getResources('leadership');
         }
-        return view('dashboard', $data);
-    }
 
-    private function populateLeadership($user, &$data) {
-        $data['pendingMembers'] = Member::where('status', 'pending')->get();
+        if ($user->hasRole('member')) {
+            $memberResources = $this->resourceFilesProvider->getResources('member');
+        }
+
+        return view('dashboard', [
+            'user' => $user,
+            'leadershipResources' => $leadershipResources ?? [],
+            'memberResources' => $memberResources ?? [],
+            'pendingMembers' => $pendingMembers ?? [],
+        ]);
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\members\OtherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resources\CategoryController;
 use App\Http\Controllers\resources\FileController;
+use App\Http\Controllers\resources\ResourceController;
 use App\Http\Controllers\resources\ResourceFilesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,11 @@ Route::middleware('auth')->controller(MemberController::class)->group(function (
     Route::get('members/create/{user}', 'create')->name('members.create-for-user');
 });
 Route::middleware('auth')->resource('members', MemberController::class);
+
+Route::middleware('auth')->controller(ResourceController::class)->group(function () {
+    Route::get('resource/{name}', 'view')->name('resource.view');
+    Route::get('resource/{name}/download', 'download')->name('resource.download');
+});
 
 Route::middleware('auth')->controller(UserController::class)->group(function () {
     Route::get('users/cancel', 'cancel')->name('users.cancel');

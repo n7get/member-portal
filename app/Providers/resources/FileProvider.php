@@ -16,9 +16,11 @@ class FileProvider extends ServiceProvider
   {
     $file->fill($request->all());
 
-    $file->file_name = $request->file('data')->getClientOriginalName();
-    $file->mime_type = $request->file('data')->getMimeType();
-    $file->data = $request->file('data')->get();
+    if ($request->has('data')) {
+      $file->file_name = $request->file('data')->getClientOriginalName();
+      $file->mime_type = $request->file('data')->getMimeType();
+      $file->data = $request->file('data')->get();
+    }
 
     if ($file->id == null) {
       $file->save();
