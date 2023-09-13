@@ -8,7 +8,7 @@
     @if ($user->needsMember())
         <div class="max-w-3xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
             <div class="flex justify-center text-red-800">
-                <x-exclamation-icon class="h-6 w-6" />
+                <x-icons.exclamation class="h-6 w-6" />
                 <div class="ml-2">
                     You staii need to submit a membership application.
                 </div>
