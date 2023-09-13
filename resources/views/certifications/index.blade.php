@@ -18,7 +18,7 @@
                         <x-edit-icon />
                     </a>
                     <div class="delete-certification ml-2 cursor-pointer" data-url="{{ route('certifications.destroy', $certification->id) }}" >
-                        <x-delete-icon />
+                        <x-icons.delete />
                     </div>
                 </div>
             </div>

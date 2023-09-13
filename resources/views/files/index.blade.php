@@ -24,7 +24,7 @@
             <x-edit-icon />
           </a>
           <div class="delete-file ml-2 cursor-pointer" data-url="{{ route('files.destroy', $file->id) }}" >
-            <x-delete-icon />
+            <x-icons.delete />
           </div>
         </div>
       </div>

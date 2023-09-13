@@ -61,7 +61,7 @@
             <x-edit-icon />
           </a>
           <div class="delete-category-file cursor-pointer" data-url="{{ route('categories.files.destroy', [$category, $file]) }}" >
-            <x-delete-icon />
+            <x-icons.delete />
           </div>
         </div>
       </div>
