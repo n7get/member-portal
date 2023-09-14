@@ -1,28 +1,29 @@
-<x-error-box />
-
-<div class="mt-2">
-  <label for="description">Description:</label>
-  <div class="mt-1">
-    <input class="w-full type="text" id="description" name="description" value="{{ old('description', $other->description) }}" required>
-  </div>
+<!-- Description -->
+<div class="mt-3">
+  <x-input-label for="description">Description:</x-input-label>
+  <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description', $other->description)" autofocus required />
+  <x-input-error :messages="$errors->get('description')" class="mt-2" />
 </div>
 
-<div class="mt-2">
-  <label for="order">Order:</label>
-  <div class="mt-1">
-    <input class="w-16 type="number" id="order" name="order" value="{{ old('order', $other->order) }}" required>
-  </div>
+<!-- Order -->
+<div class="mt-3">
+  <x-input-label for="order">Order:</x-input-label>
+  <x-text-input id="order" class="block mt-1 w-20" type="number" name="order" :value="old('order', $other->order)" required />
+  <x-input-error :messages="$errors->get('order')" class="mt-2" />
 </div>
 
-<div class="flex items-center mt-3">
+<!-- Has Extra Info -->
+<div class="block mt-4">
   <input type="hidden" name="needs_extra_info" value="0">
-  <input type="checkbox" id="needs_extra_info" name="needs_extra_info" value="1" {{ old('needs_extra_info', $other->needs_extra_info) ? 'checked' : '' }}>
-  <label class="ml-2 block mt-0.5" for="needs_extra_info" >Has extra info</label>
+  <label for="needs_extra_info" class="inline-flex items-center">
+    <input id="needs_extra_info" name="needs_extra_info" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('needs_extra_info', $other->needs_extra_info))>
+    <span class="ml-2 text-sm text-gray-600">Has extra info</span>
+  </label>
 </div>
 
-<div class="my-2">
-  <label for="prompt">Optional extra info prompt:</label>
-  <div class="mt-1">
-    <input class="w-full type="text" id="prompt" name="prompt" value="{{ old('prompt', $other->prompt) }}">
-  </div>
+<!-- Optional Extra Info Prompt -->
+<div class="mt-3">
+  <x-input-label for="prompt">Optional extra info prompt:</x-input-label>
+  <x-text-input id="prompt" class="block mt-1 w-full" type="text" name="prompt" :value="old('prompt', $other->prompt)" />
+  <x-input-error :messages="$errors->get('prompt')" class="mt-2" />
 </div>

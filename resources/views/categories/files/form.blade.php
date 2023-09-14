@@ -1,7 +1,5 @@
-<x-error-box />
-
 <div class="mt-2">
-  <label for="file_id">File</label>
+  <x-input-label for="file_id">File</x-input-label>
   <div class="mt--1">
     @if ($file->id != null)
       {{ $file->name . ' ' . $file->version . ' (' . $file->access . ')' }}
@@ -9,18 +7,19 @@
       <select name="file_id" id="file_id">
         <option value="">Select a file</option>
         @foreach($files as $f)
-          <option value="{{ $f->id }}">
+          <option value="{{ $f->id }}" {{ old('file_id', $file->id) == $f->id ? 'selected' : '' }}>
             {{ $f->name . ' ' . $f->version . ' (' . $f->access . ')' }}
           </option>
         @endforeach
       </select>
     @endif
   </div>
+  <x-input-error :messages="$errors->get('file_id')" class="mt-2" />
 </div>
 
+<!-- Order -->
 <div class="mt-3">
-  <label for="order">Order:</label>
-  <div class="mt-1">
-    <input class="w-16 type="number" id="order" name="order" value="{{ old('order', $order) }}" required>
-  </div>
+  <x-input-label for="order">Order:</x-input-label>
+  <x-text-input id="order" class="block mt-1 w-20" type="number" name="order" :value="old('order', $order)" required />
+  <x-input-error :messages="$errors->get('order')" class="mt-2" />
 </div>
