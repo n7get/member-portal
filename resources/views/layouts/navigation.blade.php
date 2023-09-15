@@ -17,18 +17,11 @@
                     </x-nav-link>
                 </div>
                 @can('manage-members')
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.index')">
-                            Members
-                        </x-nav-link>
-                    </div>
-                @endcan
-                @can('manage-members')
-                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <div class="hidden sm:flex sm:items-center sm:ml-6" >
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
                                 <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    <div>Tables</div>
+                                    <div>Members</div>
 
                                     <div class="ml-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -39,6 +32,9 @@
                             </x-slot>
 
                             <x-slot name="content">
+                                <x-dropdown-link :href="route('members.index')">
+                                    Members
+                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('capabilities.index')">
                                     Capabilities
                                 </x-dropdown-link>
@@ -46,7 +42,7 @@
                                     Certifications
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('others.index')">
-                                    Other
+                                    Other skills & equipment
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
@@ -140,6 +136,59 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
+        @can('manage-members')
+            <div class="pb-3 space-y-1 border-t border-gray-200">
+                <div class="px-4 py-3">
+                    <div class="font-extrabold text-lg text-gray-800">Members</div>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.index')">
+                        <div class="ml-4">Members</div>
+                    </x-responsive-nav-link>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('capabilities.index')" :active="request()->routeIs('capabilities.index')">
+                        <div class="ml-4">Capabilities</div>
+                    </x-responsive-nav-link>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('certifications.index')" :active="request()->routeIs('certifications.index')">
+                        <div class="ml-4">Certifications</div>
+                    </x-responsive-nav-link>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('others.index')" :active="request()->routeIs('others.index')">
+                        <div class="ml-4">Other skills & equipment</div>
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+        @endcan
+        @can('manage-resources')
+            <div class="pb-3 space-y-1 border-t border-gray-200">
+                <div class="px-4 py-3">
+                    <div class="font-extrabold text-lg text-gray-800">Resources</div>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        <div class="ml-4">Cetegories</div>
+                    </x-responsive-nav-link>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('files.index')" :active="request()->routeIs('files.index')">
+                        <div class="ml-4">Files</div>
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+        @endcan
+        @can('manage-users')
+            <div class="pt-2 pb-3 space-y-1 border-t border-gray-200">
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        Users
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+        @endcan
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

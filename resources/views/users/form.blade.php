@@ -43,7 +43,7 @@
 </div>
 
 <!-- Leadership -->
-<div class="block mt-4">
+<div class="block mt-2">
   <input type="hidden" name="leadership" value="0">
   <label for="leadership" class="inline-flex items-center">
     <input id="leadership" name="leadership" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('leadership', $leadership))>
@@ -52,7 +52,7 @@
 </div>
 
 <!-- Member -->
-<div class="block mt-4">
+<div class="block mt-2">
   <input type="hidden" name="member" value="0">
   <label for="member" class="inline-flex items-center">
     <input id="member" name="member" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('member', $member))>
@@ -61,7 +61,7 @@
 </div>
 
 <!-- Resources -->
-<div class="block mt-4">
+<div class="block mt-2">
   <input type="hidden" name="resources" value="0">
   <label for="resources" class="inline-flex items-center">
     <input id="resources" name="resources" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('resources', $resources))>

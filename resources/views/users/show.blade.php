@@ -3,9 +3,15 @@
       <x-heading-edit heading="Member {{ $user->name() }}" right-nav-route="users.edit" right-nav-id="{{ $user->id }}" />
   </x-slot>
 
-  <div class="max-w-5xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
+  <div class="max-w-lg sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
+    <div class="flex mt-2">
+      <div>Email:</div>
+      <div class="ml-2 cursor-pointer">
+        <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+      </div>
+    </div>
     @if ($user->member)
-      <div class="flex mt-4">
+      <div class="flex mt-2">
         <div>Name:</div>
         <div class="ml-2">{{ $user->name() }}</div>
       </div>
@@ -30,12 +36,6 @@
           <x-primary-button>Create member</x-primary-button>
         </a>
     @endif
-    <div class="flex mt-2">
-      <div>Email:</div>
-      <div class="ml-2 cursor-pointer">
-        <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
-      </div>
-    </div>
     <div class="flex mt-2">
       <div>Email verified at:</div>
       <div class="ml-2">{{ $user->email_verified_at }}</div>
