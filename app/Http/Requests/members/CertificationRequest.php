@@ -15,7 +15,7 @@ class CertificationRequest extends FormRequest
     {
         $orderRule = ['required', 'integer'];
         if (request()->routeIs('certifications.store')) {
-            array_push($orderRule, 'unique:certifications');
+            array_push($orderRule, 'unique:member_certifications');
         }
     
         return [

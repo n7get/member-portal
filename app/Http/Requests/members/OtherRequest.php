@@ -23,7 +23,7 @@ class OtherRequest extends FormRequest
     {
         $orderRule = ['required', 'integer'];
         if (request()->routeIs('others.store')) {
-            array_push($orderRule, 'unique:others');
+            array_push($orderRule, 'unique:member_others');
         }
 
         return [

@@ -17,7 +17,7 @@ class CapabilityRequest extends FormRequest
     {
         $orderRule = ['required', 'integer'];
         if (request()->routeIs('capabilities.store')) {
-            array_push($orderRule, 'unique:capabilities');
+            array_push($orderRule, 'unique:member_capabilities');
         }
     
         return [
