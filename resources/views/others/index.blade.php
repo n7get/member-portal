@@ -15,7 +15,7 @@
       <div class="basis-1/5 sm:basis-1/12"></div>
     </div>
       @foreach($others as $other)
-      <div class="border-b-2 sm:border-none mx-2 mt-2 pb-2 flex">
+      <div class="border-b-2 sm:border-none mx-2 mt-2 sm:mt-0 pb-2 sm:pb-0 flex">
         <div class="basis-4/5 sm:basis-11/12 sm:flex gap-2">
           <div class="basis-6/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap font-extrabold sm:font-normal">{{ $other->description }}</div>
           <div class="basis-1/12 sm:text-center">

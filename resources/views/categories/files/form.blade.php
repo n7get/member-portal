@@ -7,7 +7,7 @@
       <select name="file_id" id="file_id">
         <option value="">Select a file</option>
         @foreach($files as $f)
-          <option value="{{ $f->id }}" {{ old('file_id', $file->id) == $f->id ? 'selected' : '' }}>
+          <option value="{{ $f->id }}" @selected(old('file_id', $file->id) == $f->id)>
             {{ $f->name . ' ' . $f->version . ' (' . $f->access . ')' }}
           </option>
         @endforeach

@@ -5,9 +5,11 @@
   @role('leadership')
   <div>
     <select name="status" id="status" class="ml-2 py-0">
-      <option value="pending" {{ old('status', $member->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-      <option value="active" {{ old('status', $member->status) == 'active' ? 'selected' : '' }}>Active</option>
-      <option value="inactive" {{ old('status', $member->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
+      @foreach(['pending', 'active', 'inactive'] as $status)
+        <option value="{{ $status }}" @selected(old('status', $member->status) == $status)>
+          {{ ucfirst($status) }}
+        </option>
+      @endforeach
     </select>
   </div>
   @endrole
@@ -54,7 +56,7 @@
 <div class="flex items-center mt-2">
   <input type="hidden" name="part_year_nv_resident" value="0">
     <label class="ml-2 block mt-0.5" for="part_year_nv_resident" >
-      <input type="checkbox" id="part_year_nv_resident" name="part_year_nv_resident" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" {{ old('part_year_nv_resident', $member->part_year_nv_resident) ? 'checked' : '' }}>
+      <input type="checkbox" id="part_year_nv_resident" name="part_year_nv_resident" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('part_year_nv_resident', $member->part_year_nv_resident))>
       <span class="ml-2 text-sm text-gray-600">Part year NV resident</span>
     </label>
 </div>
@@ -102,7 +104,7 @@
 <div class="flex items-center mt-2 sm:mt-4 sm:ml-4 sm:basis-1/2">
   <input type="hidden" name="winlink_account" value="0">
     <label class="ml-2 block mt-0.5" for="winlink_account" >
-      <input type="checkbox" id="winlink_account" name="winlink_account" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" {{ old('winlink_account', $member->winlink_account) ? 'checked' : '' }}>
+      <input type="checkbox" id="winlink_account" name="winlink_account" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('winlink_account', $member->winlink_account))>
       <span class="ml-2 text-sm text-gray-600">Winlink account</span>
     </label>
 </div>
@@ -116,7 +118,7 @@
       @foreach($certifications as $certification)
         <div class="flex items-center mt-2">
           <label class="ml-2 block mt-0.5" for="certifications-{{ $certification->id }}">
-            <input type="checkbox" id="certifications-{{ $certification->id }}" name="certifications[{{ $certification->id }}]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" {{ in_array($certification->id, old('certifications', $member->certifications->pluck('id')->toArray())) ? 'checked' : '' }}>
+            <input type="checkbox" id="certifications-{{ $certification->id }}" name="certifications[{{ $certification->id }}]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(in_array($certification->id, old('certifications', $member->certifications->pluck('id')->toArray())))>
             <span class="ml-2 text-sm text-gray-600">{{ $certification->description }}</span>
           </label>
         </div>
@@ -140,12 +142,10 @@
         <div class="grow text-ellipsis overflow-hidden">{{ $capability->description }}</div>
         <div class="w-24 ml-auto flex">
           <div class="text-center w-1/2">
-            <input type="checkbox" name="capabilities[{{ $capability->id }}][base]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1"
-              {{ $formCapabilities->base($capability->id) ? 'checked' : '' }}>
+            <input type="checkbox" name="capabilities[{{ $capability->id }}][base]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked($formCapabilities->base($capability->id))>
           </div>
           <div class="text-center w-1/2">
-            <input type="checkbox" name="capabilities[{{ $capability->id }}][portable]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1"
-              {{ $formCapabilities->portable($capability->id) ? 'checked' : '' }}>
+            <input type="checkbox" name="capabilities[{{ $capability->id }}][portable]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked($formCapabilities->portable($capability->id))>
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@
       <div class="border-b-2 pt-2 pb-2">
         <div class="flex items-center">
           <label class="ml-2 block mt-0.5" for="others-{{ $other->id }}-id">
-            <input type="checkbox" id="others-{{ $other->id }}-id" name="others[{{ $other->id }}][id]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="{{ $other->id }}" {{ $formOthers->has($other->id) ? 'checked' : '' }}>
+            <input type="checkbox" id="others-{{ $other->id }}-id" name="others[{{ $other->id }}][id]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="{{ $other->id }}" @checked($formOthers->has($other->id))>
             <span class="ml-2 text-sm text-gray-600">{{ $other->description }}</span>
           </label>
         </div>

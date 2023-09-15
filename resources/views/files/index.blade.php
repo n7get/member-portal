@@ -14,7 +14,7 @@
       <div class="basis-1/12"></div>
     </div>
     @foreach($files as $file)
-      <div class="border-b-2 sm:border-none mx-2 mt-2 pb-2 flex gap-2">
+      <div class="border-b-2 sm:border-none mx-2 mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2">
         <div class="basis-4/5 sm:basis-11/12 sm:flex gap-2">
           <div class="sm:basis-4/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap font-extrabold sm:font-normal">
             <a href="{{ route('files.show', $file->id) }}">{{ $file->name }}</a>

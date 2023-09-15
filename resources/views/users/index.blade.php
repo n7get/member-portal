@@ -14,7 +14,7 @@
         <div class="font-bold basis-1/12"></div>
     </div>
         @foreach($users as $user)
-            <div class="border-b-2 sm:border-none mx-2 mt-2 pb-2 flex gap-2">
+            <div class="border-b-2 sm:border-none mx-2 mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2">
                 <div class="basis-4/5 sm:basis-11/12 sm:flex gap-2">
                     <div class="basis-1/12 text-sm sm:text-lg">
                         {{ $user->hasRole('admin') ? 'A' : '' }}

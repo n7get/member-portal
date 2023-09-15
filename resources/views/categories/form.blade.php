@@ -17,7 +17,7 @@
   <x-input-label for="access">Access</x-input-label>
   <select id="access" class="block mt-1 w-full" name="access">
     @foreach($access_levels as $access_level)
-      <option value="{{ $access_level }}" {{ old('access', $category->access) == $access_level ? 'selected' : '' }}>{{ $access_level }}</option>
+      <option value="{{ $access_level }}" @selected(old('access', $category->access) == $access_level)>{{ $access_level }}</option>
     @endforeach
   </select>
   <x-input-error :messages="$errors->get('access')" class="mt-2" />
