@@ -3,9 +3,11 @@
       <x-heading-create heading="Edit Member"/>
   </x-slot>
 
-  <div class="max-w-5xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
+  <div class="page">
     <x-edit-form submit-route="{{ route('members.update', $member->id) }}" cancel-route="{{ route('members.cancel') }}">
-      @include('members.form')
+      <div class="max-w-5xl container">
+        @include('members.form')
+      </div>
     </x-edit-form>
   </div>
 </x-app-layout>

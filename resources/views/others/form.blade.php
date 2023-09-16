@@ -15,9 +15,9 @@
 <!-- Has Extra Info -->
 <div class="block mt-4">
   <input type="hidden" name="needs_extra_info" value="0">
-  <label for="needs_extra_info" class="inline-flex items-center">
+  <label for="needs_extra_info" class="inline-flex gap-2 items-center">
     <input id="needs_extra_info" name="needs_extra_info" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('needs_extra_info', $other->needs_extra_info))>
-    <span class="ml-2 text-sm text-gray-600">Has extra info</span>
+    <span class="text-sm text-gray-600">Has extra info</span>
   </label>
 </div>
 

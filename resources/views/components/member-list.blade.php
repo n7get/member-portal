@@ -1,5 +1,5 @@
-<div class="max-w-5xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
-    <div class="border-b-2 hidden sm:border-none mx-2 sm:flex">
+<div class="max-w-5xl sm:pt-4 sm:pb-2 mx-auto bg-white">
+    <div class="border-b-2 hidden sm:border-none sm:flex">
         <div class="basis-4/5 sm:basis-11/12 flex">
             <div class="font-bold basis-2/12 underline">Callsign</div>
             <div class="font-bold basis-4/12 underline">Name</div>
@@ -9,7 +9,7 @@
         <div class="basis-1/5 sm:basis-1/12"></div>
     </div>
   @foreach($members as $member)
-    <div class="border-b-2 sm:border-none mx-2 flex hover:bg-gray-2 00">
+    <div class="border-b-2 sm:border-none flex hover:bg-gray-2 00">
         <div class="basis-4/5 sm:basis-11/12 sm:flex">
             <div class="sm:basis-2/12 font-extrabold sm:font-normal">
                 <a href="{{ route('members.show', $member->id) }}">{{ $member->callsign }}</a>

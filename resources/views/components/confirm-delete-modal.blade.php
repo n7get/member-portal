@@ -21,12 +21,12 @@
       <form id="{{ $formId }}" action="" method="POST">
         @csrf
         @method('DELETE')
-        <div class="flex flex-row justify-end pt-3">
+        <div class="flex gap-3 justify-end pt-3">
           <div class="submit-button">
             <x-primary-button type="submit">Confirm Delete</x-primary-button>
           </div>
           <div class="close-button">
-            <x-secondary-button class="ml-3">Cancel</x-secondary-button>
+            <x-secondary-button>Cancel</x-secondary-button>
           </div>
         </div>
       </form>

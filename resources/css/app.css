@@ -22,3 +22,18 @@
     @apply rounded-md;
   }
 }
+
+@layer components {
+  .page {
+    @apply sm:py-12;
+  }
+  .container {
+    @apply mx-auto sm:px-6 lg:px-8 space-y-6;
+  }
+  .panel {
+    @apply p-2 pb-4 sm:p-8 bg-white shadow sm:rounded-lg
+  }
+  .panel-header {
+    @apply pt-2 pb-4 sm:pt-0 sm:pb-5 border-b-2 text-xl font-bold;
+  }
+}

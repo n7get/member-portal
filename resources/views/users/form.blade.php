@@ -36,36 +36,36 @@
 <!-- Admin -->
 <div class="block mt-4">
   <input type="hidden" name="admin" value="0">
-  <label for="admin" class="inline-flex items-center">
+  <label for="admin" class="inline-flex gap-2 items-center">
     <input id="admin" name="admin" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('admin', $admin))>
-    <span class="ml-2 text-sm text-gray-600">Admin</span>
+    <span class="text-sm text-gray-600">Admin</span>
   </label>
 </div>
 
 <!-- Leadership -->
 <div class="block mt-2">
   <input type="hidden" name="leadership" value="0">
-  <label for="leadership" class="inline-flex items-center">
+  <label for="leadership" class="inline-flex gap-2 items-center">
     <input id="leadership" name="leadership" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('leadership', $leadership))>
-    <span class="ml-2 text-sm text-gray-600">Leadership</span>
+    <span class="text-sm text-gray-600">Leadership</span>
   </label>
 </div>
 
 <!-- Member -->
 <div class="block mt-2">
   <input type="hidden" name="member" value="0">
-  <label for="member" class="inline-flex items-center">
+  <label for="member" class="inline-flex gap-2 items-center">
     <input id="member" name="member" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('member', $member))>
-    <span class="ml-2 text-sm text-gray-600">Member</span>
+    <span class="text-sm text-gray-600">Member</span>
   </label>
 </div>
 
 <!-- Resources -->
 <div class="block mt-2">
   <input type="hidden" name="resources" value="0">
-  <label for="resources" class="inline-flex items-center">
+  <label for="resources" class="inline-flex gap-2 items-center">
     <input id="resources" name="resources" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('resources', $resources))>
-    <span class="ml-2 text-sm text-gray-600">Resources</span>
+    <span class="text-sm text-gray-600">Resources</span>
   </label>
 </div>
 

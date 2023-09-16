@@ -1,44 +1,63 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+  <x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      {{ __('Dashboard') }}
+    </h2>
+  </x-slot>
 
-    @if ($user->needsMember())
-        <div class="max-w-3xl sm:pt-4 sm:pb-2 mx-auto bg-white border-t">
-            <div class="flex justify-center text-red-800">
-                <x-icons.exclamation class="h-6 w-6" />
-                <div class="ml-2">
-                    You staii need to submit a membership application.
-                </div>
+  <div class="page">
+    <div class="max-w-5xl container">
+      @if ($user->needsMember())
+        <div class="panel">
+          <div class="flex gap-2 justify-center text-red-800">
+            <x-icons.exclamation class="h-6 w-6" />
+            <div>
+              You staii need to submit a membership application.
             </div>
-            <div class="flex justify-center mt-4">
-                <x-primary-button>
-                    <a href="{{ route('members.create') }}">
-                        Click here to get started.
-                    </a>
-                </x-primary-button>
-            </div>
+          </div>
+          <div class="flex justify-center mt-4">
+            <x-primary-button>
+              <a href="{{ route('members.create') }}">
+                Click here to get started.
+              </a>
+            </x-primary-button>
+          </div>
         </div>
-    @endif
+      @endif
 
-    @role('admin')
-        <x-dashboard-admin :user="$user" />
-    @endrole
+      {{-- @role('admin')
+      @endrole --}}
 
-    @role('leadership')
-        <x-dashboard-leadership
-            :pendingMembers="$pendingMembers"
-            :leadershipResources="$leadershipResources"
-            :user="$user"
-        />
-    @endrole
+      @role('leadership')
+        @if (count($pendingMembers))        
+          <div class="panel">
+            <div class="panel-header">
+              Users with pending membership applications
+            </div>
+            <x-member-list :members="$pendingMembers" />
+          </div>
+        @endif
 
-    @role('member')
-        <x-dashboard-member
-            :memberResources="$memberResources"
-            :user="$user"
-        />
-    @endrole
+        @if (count($leadershipResources))
+          <div class="panel">
+            <div class="panel-header">
+              Leadership Resources
+            </div>
+            <x-resource-list :resources="$leadershipResources" />        
+          </div>
+        @endif
+      @endrole
+
+      @role('member')
+        @if (count($memberResources))
+          <div class="panel">
+            <div class="panel-header">
+              Member Resources
+            </div>
+            <x-resource-list :resources="$memberResources" />
+          </div>
+        @endif
+      @endrole
+    </div>
+  </div>
 </x-app-layout>
