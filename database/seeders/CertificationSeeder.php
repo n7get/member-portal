@@ -29,7 +29,7 @@ class CertificationSeeder extends Seeder
         foreach ($descriptions as $key => $description) {
             DB::table('member_certifications')->insert([
                 'description' => $description,
-                'order' => ($key + 1) * 10,
+                'order' => $key,
             ]);
         }
     }

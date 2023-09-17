@@ -24,7 +24,7 @@
           <div>Description:</div>
           <div>{{ $file->description }}</div>
         </div>
-        <div class="flex gap-2 gap-2 mt-2">
+        <div class="flex gap-2 mt-2">
           <div>Version:</div>
           <div>{{ $file->version }}</div>
         </div>

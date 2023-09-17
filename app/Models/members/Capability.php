@@ -10,7 +10,6 @@ class Capability extends Model
     
     protected $fillable = [
         'description',
-        'order',
     ];
 
     public function members()

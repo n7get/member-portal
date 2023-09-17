@@ -35,13 +35,13 @@
                                 <x-dropdown-link :href="route('members.index')">
                                     Members
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('capabilities.index')">
+                                <x-dropdown-link :href="route('capabilities.list')">
                                     Capabilities
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('certifications.index')">
+                                <x-dropdown-link :href="route('certifications.list')">
                                     Certifications
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('others.index')">
+                                <x-dropdown-link :href="route('others.list')">
                                     Other skills & equipment
                                 </x-dropdown-link>
                             </x-slot>
@@ -64,8 +64,11 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('categories.index')">
-                                    Cetegories
+                                <x-dropdown-link :href="route('categories.list', 'member')">
+                                    Members
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('categories.list', 'leadership')">
+                                    Leadership
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('files.index')">
                                     Files
@@ -147,17 +150,17 @@
                     </x-responsive-nav-link>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('capabilities.index')" :active="request()->routeIs('capabilities.index')">
+                    <x-responsive-nav-link :href="route('capabilities.list')" :active="request()->routeIs('capabilities.list')">
                         <div class="ml-4">Capabilities</div>
                     </x-responsive-nav-link>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('certifications.index')" :active="request()->routeIs('certifications.index')">
+                    <x-responsive-nav-link :href="route('certifications.list')" :active="request()->routeIs('certifications.list')">
                         <div class="ml-4">Certifications</div>
                     </x-responsive-nav-link>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('others.index')" :active="request()->routeIs('others.index')">
+                    <x-responsive-nav-link :href="route('others.list')" :active="request()->routeIs('others.list')">
                         <div class="ml-4">Other skills & equipment</div>
                     </x-responsive-nav-link>
                 </div>
@@ -169,8 +172,13 @@
                     <div class="font-extrabold text-lg text-gray-800">Resources</div>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
-                        <div class="ml-4">Cetegories</div>
+                    <x-responsive-nav-link :href="route('categories.list', 'member')" :active="request()->routeIs('categories.index')">
+                        <div class="ml-4">Members</div>
+                    </x-responsive-nav-link>
+                </div>
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('categories.list', 'leadership')" :active="request()->routeIs('categories.index')">
+                        <div class="ml-4">Leadership</div>
                     </x-responsive-nav-link>
                 </div>
                 <div class="mt-3 space-y-1">

@@ -29,7 +29,7 @@ class CapabilitySeeder extends Seeder
         foreach ($descriptions as $key => $description) {
             DB::table('member_capabilities')->insert([
                 'description' => $description,
-                'order' => ($key + 1) * 10,
+                'order' => $key,
             ]);
         }
     }

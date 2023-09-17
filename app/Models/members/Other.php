@@ -12,7 +12,6 @@ class Other extends Model
     'description',
     'needs_extra_info',
     'prompt',
-    'order',
   ];
 
   public function members()

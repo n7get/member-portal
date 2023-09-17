@@ -6,65 +6,53 @@ namespace App\Http\Controllers\members;
 
 use App\Http\Controllers\Controller;
 use App\Models\members\Capability;
-use App\Http\Requests\members\CapabilityRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CapabilityController extends Controller
 {
-    public function index(): View
+    public function list(): View
     {
         $this->authorize('any', Capability::class);
 
         $capabilities = Capability::orderby('order')->get();
-        return view('capabilities.index', compact('capabilities'));
+        return view('capabilities.list', compact('capabilities'));
     }
 
-    public function create(): View
+    public function save(Request $request): RedirectResponse
     {
         $this->authorize('any', Capability::class);
 
-        $capability = new Capability();
-        $capability->order = Capability::max('order') + 10;
-        
-        return view('capabilities.create', compact('capability'));
-    }
+        $formInputs = $request->input('formInput', []);
 
-    public function store(CapabilityRequest $request): RedirectResponse
-    {
-        $this->authorize('any', Capability::class);
+        $oldIds = Capability::select('id')->get()->pluck('id')->toArray();
 
-        Capability::create($request->validated());
-        return redirect()->route('capabilities.index')->with('success', 'Capability added successfully.');
-    }
+        // Update existing or create new
 
-    public function show(Capability $capability): View
-    {
-        $this->authorize('any', Capability::class);
+        foreach ($formInputs as $formInput) {
+            if ($formInput['id']) {
+                $capability = Capability::find($formInput['id']);
+            } else {
+                $capability = new Capability();
+            }
 
-        return view('capabilities.show', compact('capability'));
-    }
+            $capability->description = $formInput['description'];
+            $capability->order = $formInput['order'];
 
-    public function edit(Capability $capability): View
-    {
-        $this->authorize('any', Capability::class);
+            if ($capability->id) {
+                $capability->update();
+            } else {
+                $capability->save();
+            }
+        }
 
-        return view('capabilities.edit', compact('capability'));
-    }
+        // Delete removed
 
-    public function update(CapabilityRequest $request, Capability $capability): RedirectResponse
-    {
-        $this->authorize('any', Capability::class);
+        $ids = array_map(fn($value) => $value['id'], $formInputs);
+        $deletedIds = array_diff($oldIds, $ids);
+        Capability::whereIn('id', $deletedIds)->delete();
 
-        $capability->update($request->validated());
-        return redirect()->route('capabilities.index')->with('success', 'Capability updated successfully.');
-    }
-
-    public function destroy(Capability $capability): RedirectResponse
-    {
-        $this->authorize('any', Capability::class);
-
-        $capability->delete();
-        return redirect()->route('capabilities.index')->with('success', 'Capability deleted successfully.');
+        return redirect()->route('capabilities.list')->with('success', 'Capabilities saved successfully.');
     }
 }

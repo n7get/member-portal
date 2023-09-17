@@ -68,7 +68,7 @@ class OtherSeeder extends Seeder
         'description' => $other['description'],
         'needs_extra_info' => array_key_exists('needs_extra_info', $other) ? $other['needs_extra_info'] : false,
         'prompt' => array_key_exists('prompt', $other) ? $other['prompt'] : null,
-        'order' => ($key + 1) * 10,
+        'order' => $key,
       ]);
     }
   }

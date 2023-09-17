@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-  public static $ACCESS_LEVELS = ['public', 'member', 'leadership'];
+  public static $ACCESS_LEVELS = ['member', 'leadership'];
 
   protected $table = 'resources_categories';
 
@@ -14,7 +14,6 @@ class Category extends Model
     'name',
     'description',
     'access',
-    'order',
   ];
 
   public function files()

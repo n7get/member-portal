@@ -3,74 +3,76 @@
 namespace App\Http\Controllers\resources;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\RedirectToPrevious;
-use App\Http\Requests\resources\CategoryRequest;
 use App\Models\resources\Category;
 use App\Models\resources\File;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-  public function index(): View
+  public function list(string $access): View
   {
     $this->authorize('viewAny', Category::class);
 
-    $categories = Category::orderby('order')->get();
-    return view('categories.index', compact('categories'));
-  }
+    $categories = Category::where('access', $access)->orderby('order')->with('files')->orderby('order')->get();
+    $access_levels = collect(Category::$ACCESS_LEVELS);
+    $all_files = File::where('access', $access)->orderby('name')->get();
 
-  public function create(): View
-  {
-    $this->authorize('create', Category::class);
-
-    $category = new Category();
-    $category->order = Category::max('order') + 10;
-
-    return view('categories.create', [
-      'category' => $category,
-      'access_levels' => Category::$ACCESS_LEVELS,
+    return view('categories.list', [
+      'access' => $access,
+      'access_levels' => $access_levels,
+      'all_files' => $all_files,
+      'categories' => $categories,
     ]);
   }
 
-  public function store(CategoryRequest $request): RedirectResponse
+  public function save(Request $request): RedirectResponse
   {
-    $this->authorize('create', Category::class);
+    $this->authorize('update', Category::class);
 
-    Category::create($request->validated());
-    return redirect()->route('categories.index');
-  }
+    $access = $request->input('access');
+    $categories = $request->input('category', []);
+    $files = $request->input('file', []);
 
-  public function show(Category $category): View
-  {
-    $this->authorize('view', $category);
+    $oldIds = Category::where('access', $access)->select('id')->get()->pluck('id')->toArray();
 
-    return view('categories.show', compact('category'));
-  }
+    // Update existing or create new
 
-  public function edit(Category $category): View
-  {
-    $this->authorize('update', $category);
+    foreach ($categories as $category_index => $c) {
+      if ($c['id']) {
+        $category = Category::find($c['id']);
+      } else {
+        $category = new Category();
+      }
 
-    return view('categories.edit', [
-      'category' => $category,
-      'access_levels' => Category::$ACCESS_LEVELS,
-    ]);
-  }
+      $category->name = $c['name'];
+      $category->description = $c['description'];
+      $category->access = $access;
+      $category->order = $category_index;
 
-  public function update(CategoryRequest $request, Category $category): RedirectResponse
-  {
-    $this->authorize('update', $category);
+      if ($category->id) {
+        $category->update();
+      } else {
+        $category->save();
+      }
 
-    $category->update($request->validated());
-    return redirect()->route('categories.index');
-  }
+      // Update files
 
-  public function destroy(Category $category): RedirectResponse
-  {
-    $this->authorize('delete', $category);
+      if (isset($files[$category_index])) {
+        $category->files()->sync($files[$category_index]);
+      } else {
+        $category->files()->sync([]);
+      }
+    }
 
-    $category->delete();
-    return redirect()->route('categories.index');
+    // Delete removed
+
+    $ids = array_map(fn($value) => $value['id'], $categories);
+    $deletedIds = array_diff($oldIds, $ids);
+    Category::whereIn('id', $deletedIds)->delete();
+
+    return redirect()->route('categories.list', $access)->with('success', ucfirst($access) . ' resources saved successfully.');
   }
 }

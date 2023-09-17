@@ -14,22 +14,16 @@ class ResourceCategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('resources_categories')->insert([
-            'name' => 'Public Category',
-            'description' => 'This is a public category',
-            'access' => 'public',
-            'order' => 10,
-        ]);
-        DB::table('resources_categories')->insert([
             'name' => 'Member Category',
             'description' => 'This is a member category',
             'access' => 'member',
-            'order' => 20,
+            'order' => 1,
         ]);
         DB::table('resources_categories')->insert([
             'name' => 'Leadership Category',
             'description' => 'This is an leadership category',
             'access' => 'leadership',
-            'order' => 30,
+            'order' => 2,
         ]);
     }
 }

@@ -40,8 +40,20 @@ class ResourceFileSeeder extends Seeder
         DB::table('resources_files')->insert([
             'user_id' => 1,
             'name' => 'Test File 3',
-            'file_name' => 'test-file-2.html',
+            'file_name' => 'test-file-3.html',
             'description' => 'This is test file 3.',
+            'version' => '1.0.0',
+            'mime_type' => 'text/html',
+            'access' => 'member',
+            'data' => '<html><head><title>Hello, World!</title></head><body><h1>Hello, World!</h1></body></html>',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('resources_files')->insert([
+            'user_id' => 1,
+            'name' => 'Test File 4',
+            'file_name' => 'test-file-4.html',
+            'description' => 'This is test file 4.',
             'version' => '1.0.0',
             'mime_type' => 'text/html',
             'access' => 'member',

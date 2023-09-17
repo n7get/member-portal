@@ -12,15 +12,13 @@ class ResourcesCategoriesFilesSeeder extends Seeder
   {
     $categories = Category::all();
     $files = File::all();
-    $order = 10;
 
-    foreach ($categories as $category) {
+    foreach ($categories as $key => $category) {
       $selectFiles = $files->random(rand(1, $files->count()));
       foreach($selectFiles as $f) {
         $category->files()->attach($f->id, [
-          'order' => $order,
+          'order' => $key,
         ]);
-        $order += 10;
       }
     }
   }

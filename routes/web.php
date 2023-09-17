@@ -9,7 +9,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resources\CategoryController;
 use App\Http\Controllers\resources\FileController;
 use App\Http\Controllers\resources\ResourceController;
-use App\Http\Controllers\resources\ResourceFilesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,18 +31,27 @@ Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController:
 
 require __DIR__.'/auth.php';
 
-Route::middleware('auth')->resource('capabilities', CapabilityController::class);
-Route::middleware('auth')->resource('categories', CategoryController::class);
-Route::middleware('auth')->controller(ResourceFilesController::class)->group(function () {
-    Route::get('categories/{category}/files/create', 'create')->name('categories.files.create');
-    Route::post('categories/{category}/files', 'store')->name('categories.files.store');
-    Route::get('categories/{category}/files/{file}/edit', 'edit')->name('categories.files.edit');
-    Route::put('categories/{category}/files/{file}', 'update')->name('categories.files.update');
-    Route::delete('categories/{category}/files/{file}', 'destroy')->name('categories.files.destroy');
+Route::middleware('auth')->controller(CapabilityController::class)->group(function () {
+    Route::get('capabilities', 'list')->name('capabilities.list');
+    Route::put('capabilities/save', 'save')->name('capabilities.save');
 });
-Route::middleware('auth')->resource('certifications', CertificationController::class);
+
+Route::middleware('auth')->controller(CategoryController::class)->group(function () {
+    Route::get('categories/{access}', 'list')->name('categories.list');
+    Route::put('categories/save', 'save')->name('categories.save');
+});
+
+Route::middleware('auth')->controller(CertificationController::class)->group(function () {
+    Route::get('certifications', 'list')->name('certifications.list');
+    Route::put('certifications/save', 'save')->name('certifications.save');
+});
+
 Route::middleware('auth')->resource('files', FileController::class);
-Route::middleware('auth')->resource('others', OtherController::class);
+
+Route::middleware('auth')->controller(OtherController::class)->group(function () {
+    Route::get('others', 'list')->name('others.list');
+    Route::put('others/save', 'save')->name('others.save');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

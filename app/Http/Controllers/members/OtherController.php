@@ -4,65 +4,55 @@ namespace App\Http\Controllers\members;
 
 use App\Http\Controllers\Controller;
 use App\Models\members\Other;
-use App\Http\Requests\members\OtherRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class OtherController extends Controller
 {
-  public function index(): View
+  public function list(): View
   {
     $this->authorize('any', Other::class);
 
     $others = Other::orderby('order')->get();
-    return view('others.index', compact('others'));
+    return view('others.list', compact('others'));
   }
 
-  public function create(): View
-  {
-    $this->authorize('any', Other::class);
-
-    $other = new Other();
-    $other->order = Other::max('order') + 10;
-
-    return view('others.create', compact('other'));
-  }
-
-  public function store(OtherRequest $request): RedirectResponse
-  {
-    $this->authorize('any', Other::class);
-
-    Other::create($request->validated());
-    return redirect()->route('others.index')->with('success', 'Other item created successfully.');
-  }
-
-  public function show(Other $other): View
-  {
-    $this->authorize('any', Other::class);
-
-    return view('others.show', compact('other'));
-  }
-
-  public function edit(Other $other): View
-  {
-    $this->authorize('any', Other::class);
-
-    return view('others.edit', compact('other'));
-  }
-
-  public function update(OtherRequest $request, Other $other): RedirectResponse
-  {
-    $this->authorize('any', Other::class);
-
-    $other->update($request->validated());
-    return redirect()->route('others.index')->with('success', 'Other item updated successfully.');
-  }
-
-  public function destroy(Other $other): RedirectResponse
+  public function save(Request $request): RedirectResponse
   {
     $this->authorize('any', Other::class);
     
-    $other->delete();
-    return redirect()->route('others.index')->with('success', 'Other item deleted successfully.');
+    $formInputs = $request->input('formInput', []);
+
+    $oldIds = Other::select('id')->get()->pluck('id')->toArray();
+
+    // Update existing or create new
+
+    foreach ($formInputs as $formInput) {
+      if ($formInput['id']) {
+        $other = Other::find($formInput['id']);
+      } else {
+        $other = new Other();
+      }
+
+      $other->description = $formInput['description'];
+      $other->needs_extra_info = $formInput['needs_extra_info'];
+      $other->prompt = $formInput['prompt'];
+      $other->order = $formInput['order'];
+
+      if($other->id) {
+        $other->update();
+      } else {
+        $other->save();
+      }
+    }
+
+    // Delete removed
+
+    $ids = array_map(fn($value) => $value['id'], $formInputs);
+    $deletedIds = array_diff($oldIds, $ids);
+    Other::whereIn('id', $deletedIds)->delete();
+
+    return redirect()->route('others.list')->with('success', 'Other skills & equipment saved successfully.');
   }
 }
