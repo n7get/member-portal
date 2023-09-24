@@ -16,14 +16,14 @@
       <x-editable-list-form submitRoute="{{ $submitRoute }}">
         <div>
           <template x-for="(item, index) in items" :key="item.key">
-            <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex hover:bg-gray-300">
+            <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex hover:bg-gray-100">
               <input :name="formInput(index, 'id')" type="hidden" x-model="item.id" />
               <input :name="formInput(index, 'description')" type="hidden" x-model="item.description" />
               <input :name="formInput(index, 'order')" type="hidden" x-model="index">
 
-              <div class="basis-8/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap font-extrabold sm:font-normal" x-text="item.description"></div>
+              <div class="w-8/12 sm:truncate font-extrabold sm:font-normal" x-text="item.description"></div>
 
-              <div class="basis-4/12 flex gap-2 justify-end">
+              <div class="w-4/12 flex gap-2 justify-end">
                 <div @click="moveItemUp(index)" class="cursor-pointer"><x-icons.up-arrow /></div>
                 <div @click="moveItemDown(index)" class="cursor-pointer"><x-icons.down-arrow /></div>
                 <div @click="editItem(index)" class="cursor-pointer"><x-icons.edit /></div>

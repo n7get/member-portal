@@ -8,8 +8,8 @@
     <div class="ml-5">
       @foreach ($resource->files as $file)
         <div class="border-b pb-2 mb-2">
-          <div class="flex gap-">
-            <div class="basis-4/12">
+          <div class="flex gap-2">
+            <div class="w-4/12">
               @role('resources')
               <a href="{{ route('files.show', $file) }}">
                 {{ $file->name }}
@@ -18,8 +18,8 @@
               {{ $file->name }}
               @endrole
             </div>
-            <div class="basis-7/12">{{ $file->description }}</div>
-            <div class="flex gap-2 justify-end basis-1/12">
+            <div class="w-7/12">{{ $file->description }}</div>
+            <div class="w-1/12 flex gap-2 justify-end">
               <div>
                 <a href="{{ route('resource.view', $file->name) }}" title="View" target="_blank">
                   <x-icons.view-icon class="h-6 w-6" />

@@ -33,19 +33,19 @@
   </div>
 
   <div class="sm:flex">
-    <div class="mt-2 sm:basis-1/3">
+    <div class="mt-2 sm:w-1/3">
       <x-input-label for="mailing_address_city">City:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="mailing_address_city" name="mailing_address_city" maxlength="100" value="{{ old('mailing_address_city', $member->mailing_address_city) }}" autocomplete="address-level2" />
     <x-input-error :messages="$errors->get('mailing_address_city')" class="mt-2" />
     </div>
 
-    <div class="mt-2 sm:ml-4 sm:basis-1/12">
+    <div class="mt-2 sm:ml-4 sm:w-1/12">
       <x-input-label for="mailing_address_state">State:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="mailing_address_state" name="mailing_address_state" maxlength="2" value="{{ old('mailing_address_state', $member->mailing_address_state) }}" autocomplete="address-level1" />
     <x-input-error :messages="$errors->get('mailing_address_state')" class="mt-2" />
     </div>
 
-    <div class="mt-2 sm:ml-4 sm:basis-1/5">
+    <div class="mt-2 sm:ml-4 sm:w-1/5">
       <x-input-label for="mailing_address_zip">Zip Code:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="mailing_address_zip" name="mailing_address_zip" maxlength="10" value="{{ old('mailing_address_zip', $member->mailing_address_zip) }}" autocomplete="postal-code" />
     <x-input-error :messages="$errors->get('mailing_address_zip')" class="mt-2" />
@@ -61,25 +61,25 @@
   </div>
 
   <div class="sm:flex">
-    <div class="mt-2 sm:basis-1/4">
+    <div class="mt-2 sm:w-1/4">
       <x-input-label for="callsign">Callsign:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="callsign" name="callsign" value="{{ old('callsign', $member->callsign) }}" required />
       <x-input-error :messages="$errors->get('callsign')" class="mt-2" />
     </div>
 
-    <div class="mt-2 sm:ml-4 sm:basis-1/4">
+    <div class="mt-2 sm:ml-4 sm:w-1/4">
       <x-input-label for="expiration">Expiration:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="expiration" name="expiration" placeholder="MM/DD/YY" value="{{ old('expiration', $member->expiration->format('m/d/y')) }}" required />
       <x-input-error :messages="$errors->get('expiration')" class="mt-2" />
     </div>
 
-    <div class="mt-2 sm:ml-4 sm:basis-1/4">
+    <div class="mt-2 sm:ml-4 sm:w-1/4">
       <x-input-label for="shares_callsign">SHARES callsign:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="shares_callsign" name="shares_callsign" value="{{ old('shares_callsign', $member->shares_callsign) }}" />
       <x-input-error :messages="$errors->get('shares_callsign')" class="mt-2" />
     </div>
 
-    <div class="mt-2 sm:ml-4 sm:basis-1/4">
+    <div class="mt-2 sm:ml-4 sm:w-1/4">
       <x-input-label for="gmrs_callsign">GMRS callsign:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="gmrs_callsign" name="gmrs_callsign" value="{{ old('gmrs_callsign', $member->gmrs_callsign) }}" />
       <x-input-error :messages="$errors->get('gmrs_callsign')" class="mt-2" />
@@ -87,20 +87,20 @@
   </div>
 
   <div class="sm:flex">
-    <div class="mt-2 sm:basis-1/2">
+    <div class="mt-2 sm:w-1/2">
       <x-input-label for="cellPhone">Cellphone:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="cellPhone" name="cellPhone" value="{{ old('cellPhone', $member->cellPhone) }}" autocomplete="tel" required />
       <x-input-error :messages="$errors->get('cellPhone')" class="mt-2" />
     </div>
 
-    <div class="mt-2 sm:ml-4 sm:basis-1/2">
+    <div class="mt-2 sm:ml-4 sm:w-1/2">
       <x-input-label for="cell_sms_carrier">Cell/SMS carrier:</x-input-label>
       <x-text-input class="block mt-1 w-full" type="text" id="cell_sms_carrier" name="cell_sms_carrier" value="{{ old('cell_sms_carrier', $member->cell_sms_carrier) }}" required />
       <x-input-error :messages="$errors->get('cell_sms_carrier')" class="mt-2" />
     </div>
   </div>
 
-  <div class="flex items-center mt-2 sm:mt-4 sm:ml-4 sm:basis-1/2">
+  <div class="flex items-center mt-2 sm:mt-4 sm:ml-4 sm:w-1/2">
     <input type="hidden" name="winlink_account" value="0">
       <label class="ml-2 block mt-0.5" for="winlink_account" >
         <input type="checkbox" id="winlink_account" name="winlink_account" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('winlink_account', $member->winlink_account))>
@@ -110,8 +110,8 @@
 </div>
 
 <div class="flex flex-col sm:flex-row gap-6">
-  <div class="panel sm:basis-1/2 px-2 sm:px-0">
-    <div class="sm:basis-1/2 sm:px-8">
+  <div class="panel sm:w-1/2 px-2 sm:px-0">
+    <div class="sm:w-1/2 sm:px-8">
       <div class="panel-header">
         Courses you have completed
       </div>
@@ -128,8 +128,8 @@
     </div>
   </div>
 
-  <div class="panel sm:basis-1/2 px-2 sm:px-0">
-    <div class="sm:basis-1/2 sm:px-8">
+  <div class="panel sm:w-1/2 px-2 sm:px-0">
+    <div class="sm:w-1/2 sm:px-8">
       <div class="panel-header">
         Capabilities
       </div>
@@ -142,7 +142,7 @@
       </div>
       @foreach($capabilities as $capability)
         <div class="flex">
-          <div class="grow text-ellipsis overflow-hidden">{{ $capability->description }}</div>
+          <div class="grow truncate">{{ $capability->description }}</div>
           <div class="w-24 ml-auto flex">
             <div class="text-center w-1/2">
               <input type="checkbox" name="capabilities[{{ $capability->id }}][base]" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked($formCapabilities->base($capability->id))>

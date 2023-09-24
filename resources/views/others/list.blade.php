@@ -14,38 +14,38 @@
         class="panel"
       >
         <div class="border-b-2 sm:border-none hidden sm:flex">
-          <div class="basis-4/5 sm:basis-11/12 flex gap-2">
-            <div class="font-bold basis-6/12 underline">Description</div>
-            <div class="font-bold basis-1/12 text-center underline">Extra</div>
-            <div class="font-bold basis-4/12 underline">Prompt</div>
+          <div class="w-4/5 sm:w-11/12 flex gap-2">
+            <div class="w-6/12 font-bold underline">Description</div>
+            <div class="w-1/12 font-bold text-center underline">Extra</div>
+            <div class="w-4/12 font-bold underline">Prompt</div>
           </div>
-          <div class="basis-1/5 sm:basis-2/12"></div>
+          <div class="w-1/5 sm:w-2/12"></div>
         </div>
         <x-editable-list-form submitRoute="{{ route('others.save') }}">
           <div>
             <template x-for="(item, index) in items" :key="item.key">
-              <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex hover:bg-gray-300">
+              <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex hover:bg-gray-100">
                 <input :name="formInput(index, 'id')" type="hidden" x-model="item.id" />
                 <input :name="formInput(index, 'description')" type="hidden" x-model="item.description" />
                 <input :name="formInput(index, 'needs_extra_info')" type="hidden" x-model="item.needs_extra_info" />
                 <input :name="formInput(index, 'prompt')" type="hidden" x-model="item.prompt" />
                 <input :name="formInput(index, 'order')" type="hidden" x-model="index">
 
-                <div class="basis-4/5 sm:basis-11/12 sm:flex gap-2">
-                  <div class="basis-6/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap font-extrabold sm:font-normal" x-text="item.description"></div>
-                  <div class="basis-1/12 sm:text-center">
+                <div class="w-4/5 sm:w-11/12 sm:flex gap-2">
+                  <div class="w-6/12 sm:truncate font-extrabold sm:font-normal" x-text="item.description"></div>
+                  <div class="w-1/12 sm:text-center">
                     <span class="sm:hidden text-sm">Has extra input</span>
                     <svg x-show="item.needs_extra_info" class="hidden sm:inline w-5 mt-1" class="inline w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                   </div>
-                  <div class="basis-4/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap">
+                  <div class="w-4/12 sm:truncate">
                     <span class="sm:hidden inline-block text-sm">Prompt:</span>
                     <span class="text-sm sm:text-lg" x-text="item.prompt"></span>
                   </div>
                 </div>
 
-                <div class="basis-1/5 sm:basis-2/12 flex gap-2 justify-end items-center">
+                <div class="w-1/5 sm:w-2/12 flex gap-2 justify-end items-center">
                   <div @click="moveItemUp(index)" class="cursor-pointer"><x-icons.up-arrow /></div>
                   <div @click="moveItemDown(index)" class="cursor-pointer"><x-icons.down-arrow /></div>
                   <div @click="editItem(index)" class="cursor-pointer"><x-icons.edit /></div>

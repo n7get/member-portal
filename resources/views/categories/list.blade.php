@@ -4,7 +4,7 @@
   </x-slot>
 
   <div class="page">
-    <div class="max-w-3xl container">
+    <div class="max-w-4xl container">
       <x-success />
 
       <div
@@ -15,28 +15,27 @@
         class="panel"
       >
         <div class="border-b-2 sm:border-none hidden sm:flex gap-2">
-          <div class="basis-11/12 flex gap-2">
-            <div class="font-bold basis-4/12 underline">Name</div>
-            <div class="font-bold basis-8/12 underline">Description</div>
+          <div class="w-4/5 flex gap-2">
+            <div class="font-bold w-1/3 underline">Name</div>
+            <div class="font-bold w-2/3 underline">Description</div>
           </div>
-          <div class="basis-1/5"></div>
+          <div class="w-1/5"></div>
         </div>
         <x-editable-list-form submitRoute="{{ route('categories.save') }}" add="Add Category">
           <input type="hidden" name="access" value="{{ $access }}" />
-          <div>
             <template x-for="(category, category_index) in categories" :key="category.key">
               <div>
-                <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 hover:bg-gray-300"">
+              <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 font-ex hover:bg-gray-100"">
                   <input :name="formId(category_index)" type="hidden" x-model="category.id" />
                   <input :name="formName(category_index)" type="hidden" x-model="category.name" />
                   <input :name="formDescription(category_index)" type="hidden" x-model="category.description" />
 
-                  <div class="basis-4/5 sm:basis-11/12 sm:flex gap-2">
-                    <div class="basis-4/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap font-extrabold sm:font-normal" x-text="category.name"></div>
-                    <div class="basis-8/12 text-sm sm:text-lg sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap" x-text="category.description"></div>
+                <div class="w-4/5 sm:w-3/4 sm:flex gap-2">
+                    <div class="w-1/3 sm:truncate font-extrabold sm:font-normal" x-text="category.name"></div>
+                    <div class="w-2/3 text-sm sm:text-lg sm:truncate" x-text="category.description"></div>
                   </div>
 
-                  <div class="basis-1/5 sm:basis-2/12 flex gap-2 justify-end categories-center">
+                <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end categories-center">
                     <div @click="moveCategoryUp(category_index)" class="cursor-pointer"><x-icons.up-arrow /></div>
                     <div @click="moveCategoryDown(category_index)" class="cursor-pointer"><x-icons.down-arrow /></div>
                     <div @click="editCategory(category_index)" class="cursor-pointer"><x-icons.edit /></div>
@@ -45,15 +44,15 @@
                   </div>
                 </div>
                 <template x-for="(file, file_index) in category.files" :key="file.key">
-                  <div class="border-b-2 sm:border-none pl-6 mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 hover:bg-gray-300"">
+                  <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 bg-grey-400 hover:bg-gray-100"">
                     <input type="hidden" :name="formFile(category_index, file_index, file.id)" x-model="file_index" />
 
-                    <div class="basis-4/5 sm:basis-11/12 sm:flex gap-2">
-                      <div class="basis-4/12 sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap font-extrabold sm:font-normal" x-text="file.name"></div>
-                      <div class="basis-8/12 text-sm sm:text-lg sm:text-ellipsis sm:overflow-hidden sm:whitespace-nowrap" x-text="file.description"></div>
+                    <div class="w-4/5 sm:w-3/4 sm:flex gap-2">
+                      <div class="w-1/3 sm:truncate font-extrabold sm:font-normal" x-text="file.name"></div>
+                      <div class="w-2/3 sm:truncate text-sm sm:text-lg" x-text="file.description"></div>
                     </div>
 
-                    <div class="basis-1/5 sm:basis-2/12 flex gap-2 justify-end categories-center">
+                    <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end categories-center">
                       <div @click="moveFileUp(category_index, file_index)" class="cursor-pointer"><x-icons.up-arrow /></div>
                       <div @click="moveFiledown(category_index, file_index)" class="cursor-pointer"><x-icons.down-arrow /></div>
                       <div @click="editFile(category_index, file_index)" class="cursor-pointer"><x-icons.edit /></div>
@@ -63,7 +62,6 @@
                 </template>
               </div>
             </template>
-          </div>
         </x-editable-list-form>
       </div>
     </div>
