@@ -31,7 +31,7 @@ class MemberController extends Controller
     {
         $this->authorize('index', Member::class);
 
-        $members = Member::orderby('callsign')->get();
+        $members = Member::with('user')->orderby('callsign')->get();
 
         return view('members.index', compact('members'));
     }

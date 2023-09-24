@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         $this->authorize('index', User::class);
 
-        $users = User::all();
+        $users = User::with(['member', 'roles'])->get();
         return view('users.index', compact('users'));
     }
 
@@ -51,8 +51,9 @@ class UserController extends Controller
     }
 
     // Display the specified resource.
-    public function show(User $user): View
+    public function show(int $id): View
     {
+        $user = User::with(['member', 'roles'])->find($id);
         $this->authorize('show', $user);
         
         return view('users.show', compact('user'));

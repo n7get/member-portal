@@ -14,7 +14,7 @@ class ResourceFilesProvider extends ServiceProvider
 
   public function getResources(string $access): Collection
   {
-      $categories = Category::where('access', $access)->get()->sortBy('order');
+      $categories = Category::where('access', $access)->with('files')->get()->sortBy('order');
       return $categories;
   }
 }
