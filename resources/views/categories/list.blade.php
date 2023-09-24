@@ -23,27 +23,27 @@
         </div>
         <x-editable-list-form submitRoute="{{ route('categories.save') }}" add="Add Category">
           <input type="hidden" name="access" value="{{ $access }}" />
-            <template x-for="(category, category_index) in categories" :key="category.key">
-              <div>
+          <template x-for="(category, category_index) in categories" :key="category.key">
+            <div>
               <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 font-ex hover:bg-gray-100"">
-                  <input :name="formId(category_index)" type="hidden" x-model="category.id" />
-                  <input :name="formName(category_index)" type="hidden" x-model="category.name" />
-                  <input :name="formDescription(category_index)" type="hidden" x-model="category.description" />
+                <input :name="formId(category_index)" type="hidden" x-model="category.id" />
+                <input :name="formName(category_index)" type="hidden" x-model="category.name" />
+                <input :name="formDescription(category_index)" type="hidden" x-model="category.description" />
 
                 <div class="w-4/5 sm:w-3/4 sm:flex gap-2">
                     <div class="w-1/3 sm:truncate font-extrabold sm:font-normal" x-text="category.name"></div>
                     <div class="w-2/3 text-sm sm:text-lg sm:truncate" x-text="category.description"></div>
-                  </div>
+                </div>
 
                 <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end categories-center">
-                    <div @click="moveCategoryUp(category_index)" class="cursor-pointer"><x-icons.up-arrow /></div>
-                    <div @click="moveCategoryDown(category_index)" class="cursor-pointer"><x-icons.down-arrow /></div>
-                    <div @click="editCategory(category_index)" class="cursor-pointer"><x-icons.edit /></div>
-                    <div @click="addFile(category_index)" class="cursor-pointer"><x-icons.plus /></div>
-                    <div @click="descroryCategory(category_index)" class="cursor-pointer"><x-icons.delete /></div>
-                  </div>
+                  <div @click="moveCategoryUp(category_index)" class="cursor-pointer"><x-icons.up-arrow /></div>
+                  <div @click="moveCategoryDown(category_index)" class="cursor-pointer"><x-icons.down-arrow /></div>
+                  <div @click="editCategory(category_index)" class="cursor-pointer"><x-icons.edit /></div>
+                  <div @click="addFile(category_index)" class="cursor-pointer"><x-icons.plus /></div>
+                  <div @click="descroryCategory(category_index)" class="cursor-pointer"><x-icons.delete /></div>
                 </div>
-                <template x-for="(file, file_index) in category.files" :key="file.key">
+              </div>
+              <template x-for="(file, file_index) in category.files" :key="file.key">
                   <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 bg-grey-400 hover:bg-gray-100"">
                     <input type="hidden" :name="formFile(category_index, file_index, file.id)" x-model="file_index" />
 
@@ -59,9 +59,9 @@
                       <div @click="destoryFile(category_index, file_index)" class="cursor-pointer"><x-icons.delete /></div>
                     </div>
                   </div>
-                </template>
-              </div>
-            </template>
+              </template>
+            </div>
+          </template>
         </x-editable-list-form>
       </div>
     </div>
@@ -113,7 +113,7 @@
 @push('scripts')
   <script>
     function listData() {
-      const categories = {!! $categories !!};
+      const categories = @json($categories);
       
       categories.forEach(category => {
         category.key = Math.random();
@@ -235,7 +235,6 @@
 
     function categoryModelData() {
       return {
-        access_levels: {!! $access_levels !!},
         category_index: -1,
         id: null,
         name: null,
@@ -272,8 +271,8 @@
     }
 
     function fileModelData() {
-      const all_files = {!! $all_files !!};
-
+      const all_files = @json($all_files);
+      
       return {
         all_files: all_files,
         category_index: -1,

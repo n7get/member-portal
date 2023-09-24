@@ -16,13 +16,30 @@ class CategoryController extends Controller
   {
     $this->authorize('viewAny', Category::class);
 
-    $categories = Category::where('access', $access)->orderby('order')->with('files')->orderby('order')->get();
-    $access_levels = collect(Category::$ACCESS_LEVELS);
-    $all_files = File::where('access', $access)->orderby('name')->get();
+    $categories = Category::where('access', $access)->orderby('order')->with('files')->orderby('order')->get()->map(function ($category) {
+      return [
+        'id' => $category->id,
+        'name' => $category->name,
+        'description' => $category->description,
+        'files' => $category->files->map(function ($file) {
+          return [
+            'id' => $file->id,
+            'name' => $file->name,
+            'description' => $file->description,
+          ];
+        }),
+      ];
+    });
+    $all_files = File::where('access', $access)->orderby('name')->get()->map(function ($file) {
+      return [
+        'id' => $file->id,
+        'name' => $file->name,
+        'description' => $file->description,
+      ];
+    });
 
     return view('categories.list', [
       'access' => $access,
-      'access_levels' => $access_levels,
       'all_files' => $all_files,
       'categories' => $categories,
     ]);
