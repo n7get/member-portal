@@ -108,203 +108,206 @@
       </div>
     </div>
   </x-modal>
+
+  @push('scripts')
+    <script>
+      function listData() {
+        const categories = @json($categories);
+        
+        categories.forEach(category => {
+          category.key = Math.random();
+          
+          category.files.forEach(file => {
+            file.key = Math.random();
+          });
+        });
+
+        return {
+          categories: categories,
+
+          formId(category_index) {
+            return `category[${category_index}][id]`;
+          },
+          formName(category_index) {
+            return `category[${category_index}][name]`;
+          },
+          formDescription(category_index) {
+            return `category[${category_index}][description]`;
+          },
+          formFile(category_index, file_index, id) {
+            return `file[${category_index}][${id}][order]`;
+          },
+
+          moveCategoryUp(category_index) {
+            if (category_index > 0) {
+              this.categories.splice(category_index - 1, 0, this.categories.splice(category_index, 1)[0]);
+            }
+          },
+          moveCategoryDown(category_index) {
+            if (category_index < this.categories.length - 1) {
+              this.categories.splice(category_index + 1, 0, this.categories.splice(category_index, 1)[0]);
+            }
+          },
+          editCategory(category_index) {
+            this.$dispatch('edit-category', {
+              category_index: category_index,
+              category: this.categories[category_index],
+            });
+          },
+
+          addCategory() {
+            this.$dispatch('edit-category', {
+              category_index: this.categories.length,
+              category: {
+                id: 0,
+                name: '',
+                description: '',
+              },
+            });
+          },
+          saveCategory() {
+            const category_index = this.$event.detail.category_index;
+            const category = this.$event.detail.category;
+            category.key = Math.random();
+
+            this.categories[category_index] = category;
+          },
+          descroryCategory(category_index) {
+            this.categories.splice(category_index, 1);
+          },
+
+          moveFileUp(category_index, file_index) {
+            const category = this.categories[category_index];
+
+            if (file_index > 0) {
+              category.files.splice(file_index - 1, 0, category.files.splice(file_index, 1)[0]);
+            }
+          },
+          moveFiledown(category_index, file_index) {
+            const category = this.categories[category_index];
+
+            if (file_index < category.files.length - 1) {
+              category.files.splice(file_index + 1, 0, category.files.splice(file_index, 1)[0]);
+            }
+          },
+
+          editFile(category_index, file_index) {
+            const category = this.categories[category_index];
+
+            this.$dispatch('edit-file', {
+              category_index: category_index,
+              file_index: file_index,
+              file: category.files[file_index],
+            });
+          },
+          destoryFile(category_index, file_index) {
+            this.categories[category_index].files.splice(file_index, 1);
+          },
+
+          addFile(category_index) {
+            this.$dispatch('edit-file', {
+              category_index: category_index,
+              file_index: this.categories[category_index].files.length,
+              file: {
+                id: 0,
+                name: '',
+              },
+            });
+          },
+          saveFile() {
+            const category_index = this.$event.detail.category_index;
+            const category = this.categories[category_index];
+
+            const file_index = this.$event.detail.file_index;
+            const file = this.$event.detail.file;
+            file.key = Math.random();
+
+            category.files[file_index] = file;
+          },
+
+          openAddModal(category) {
+            console.log('category: ', category);
+            this.$dispatch('open-modal', 'category-modal', category);
+          },
+        };
+      }
+
+      function categoryModelData() {
+        return {
+          category_index: -1,
+          id: null,
+          name: null,
+          description: null,
+
+          openCategoryModel() {
+            this.category_index = this.$event.detail.category_index;
+            const category = this.$event.detail.category;
+
+            this.id = category.id;
+            this.name = category.name,
+            this.description = category.description,
+
+            this.$dispatch('open-modal', 'category-modal');
+          },
+
+          saveCategory() {
+            if (! this.name || ! this.description) {
+              return;
+            }
+
+            this.$dispatch('close');
+            this.$dispatch('save-category', {
+              category_index: this.category_index,
+              category: {
+                id: this.id,
+                name: this.name,
+                description: this.description,
+                files: [],
+              },
+            });
+          },
+        }
+      }
+
+      function fileModelData() {
+        const all_files = @json($all_files);
+        
+        return {
+          all_files: all_files,
+          category_index: -1,
+          file_index: -1,
+          id: null,
+          name: null,
+
+          openFileModal() {
+            this.category_index = this.$event.detail.category_index;
+            this.file_index = this.$event.detail.file_index;
+            const file = this.$event.detail.file;
+            
+            this.id = file.id;
+            this.name = file.name,
+
+            this.$dispatch('open-modal', 'file-modal');
+          },
+
+          saveFile() {
+            if (! this.id) {
+              return;
+            }
+
+            const file = this.all_files.find(file => file.id == this.id);
+
+            this.$dispatch('close');
+            this.$dispatch('save-file', {
+              category_index: this.category_index,
+              file_index: this.file_index,
+              file: file,
+            });
+          },
+        }
+      }
+    </script>
+  @endpush
 </x-app-layout>
 
-@push('scripts')
-  <script>
-    function listData() {
-      const categories = @json($categories);
-      
-      categories.forEach(category => {
-        category.key = Math.random();
-        
-        category.files.forEach(file => {
-          file.key = Math.random();
-        });
-      });
 
-      return {
-        categories: categories,
-
-        formId(category_index) {
-          return `category[${category_index}][id]`;
-        },
-        formName(category_index) {
-          return `category[${category_index}][name]`;
-        },
-        formDescription(category_index) {
-          return `category[${category_index}][description]`;
-        },
-        formFile(category_index, file_index, id) {
-          return `file[${category_index}][${id}][order]`;
-        },
-
-        moveCategoryUp(category_index) {
-          if (category_index > 0) {
-            this.categories.splice(category_index - 1, 0, this.categories.splice(category_index, 1)[0]);
-          }
-        },
-        moveCategoryDown(category_index) {
-          if (category_index < this.categories.length - 1) {
-            this.categories.splice(category_index + 1, 0, this.categories.splice(category_index, 1)[0]);
-          }
-        },
-        editCategory(category_index) {
-          this.$dispatch('edit-category', {
-            category_index: category_index,
-            category: this.categories[category_index],
-          });
-        },
-
-        addCategory() {
-          this.$dispatch('edit-category', {
-            category_index: this.categories.length,
-            category: {
-              id: 0,
-              name: '',
-              description: '',
-            },
-          });
-        },
-        saveCategory() {
-          const category_index = this.$event.detail.category_index;
-          const category = this.$event.detail.category;
-          category.key = Math.random();
-
-          this.categories[category_index] = category;
-        },
-        descroryCategory(category_index) {
-          this.categories.splice(category_index, 1);
-        },
-
-        moveFileUp(category_index, file_index) {
-          const category = this.categories[category_index];
-
-          if (file_index > 0) {
-            category.files.splice(file_index - 1, 0, category.files.splice(file_index, 1)[0]);
-          }
-        },
-        moveFiledown(category_index, file_index) {
-          const category = this.categories[category_index];
-
-          if (file_index < category.files.length - 1) {
-            category.files.splice(file_index + 1, 0, category.files.splice(file_index, 1)[0]);
-          }
-        },
-
-        editFile(category_index, file_index) {
-          const category = this.categories[category_index];
-
-          this.$dispatch('edit-file', {
-            category_index: category_index,
-            file_index: file_index,
-            file: category.files[file_index],
-          });
-        },
-        destoryFile(category_index, file_index) {
-          this.categories[category_index].files.splice(file_index, 1);
-        },
-
-        addFile(category_index) {
-          this.$dispatch('edit-file', {
-            category_index: category_index,
-            file_index: this.categories[category_index].files.length,
-            file: {
-              id: 0,
-              name: '',
-            },
-          });
-        },
-        saveFile() {
-          const category_index = this.$event.detail.category_index;
-          const category = this.categories[category_index];
-
-          const file_index = this.$event.detail.file_index;
-          const file = this.$event.detail.file;
-          file.key = Math.random();
-
-          category.files[file_index] = file;
-        },
-
-        openAddModal(category) {
-          console.log('category: ', category);
-          this.$dispatch('open-modal', 'category-modal', category);
-        },
-      };
-    }
-
-    function categoryModelData() {
-      return {
-        category_index: -1,
-        id: null,
-        name: null,
-        description: null,
-
-        openCategoryModel() {
-          this.category_index = this.$event.detail.category_index;
-          const category = this.$event.detail.category;
-
-          this.id = category.id;
-          this.name = category.name,
-          this.description = category.description,
-
-          this.$dispatch('open-modal', 'category-modal');
-        },
-
-        saveCategory() {
-          if (! this.name || ! this.description) {
-            return;
-          }
-
-          this.$dispatch('close');
-          this.$dispatch('save-category', {
-            category_index: this.category_index,
-            category: {
-              id: this.id,
-              name: this.name,
-              description: this.description,
-              files: [],
-            },
-          });
-        },
-      }
-    }
-
-    function fileModelData() {
-      const all_files = @json($all_files);
-      
-      return {
-        all_files: all_files,
-        category_index: -1,
-        file_index: -1,
-        id: null,
-        name: null,
-
-        openFileModal() {
-          this.category_index = this.$event.detail.category_index;
-          this.file_index = this.$event.detail.file_index;
-          const file = this.$event.detail.file;
-          
-          this.id = file.id;
-          this.name = file.name,
-
-          this.$dispatch('open-modal', 'file-modal');
-        },
-
-        saveFile() {
-          if (! this.id) {
-            return;
-          }
-
-          const file = this.all_files.find(file => file.id == this.id);
-
-          this.$dispatch('close');
-          this.$dispatch('save-file', {
-            category_index: this.category_index,
-            file_index: this.file_index,
-            file: file,
-          });
-        },
-      }
-    }
-  </script>

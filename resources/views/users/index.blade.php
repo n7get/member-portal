@@ -40,7 +40,7 @@
             <a href="{{ route('users.edit', $user->id) }}">
               <x-icons.edit />
             </a>
-            <div class="delete-user cursor-pointer" data-url="{{ route('users.destroy', $user->id) }}" >
+            <div x-data="modalData()" @click="openModal()" class="cursor-pointer" data-type="user" data-url="{{ route('users.destroy', $user->id) }}" >
               <x-icons.delete />
             </div>
           </div>
@@ -49,5 +49,5 @@
     </div>
   </div>
 
-  <x-confirm-delete-modal open-modal-button-class="delete-user" type="user" />
+  <x-confirm-delete-modal />
 </x-app-layout>

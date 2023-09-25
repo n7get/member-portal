@@ -32,12 +32,12 @@
               </div>
             </div>
             <div class="w-1/5 sm:w-1/12 flex gap-2 justify-end items-center">
-                <a href="{{ route('files.edit', $file->id) }}">
-                    <x-icons.edit />
-                </a>
-                <div class="delete-file cursor-pointer" data-url="{{ route('files.destroy', $file->id) }}" >
-                    <x-icons.delete />
-                </div>
+              <a href="{{ route('files.edit', $file->id) }}">
+                <x-icons.edit />
+              </a>
+              <div x-data="modalData()" @click="openModal()" class="cursor-pointer" data-type="file" data-url="{{ route('files.destroy', $file->id) }}">
+                <x-icons.delete />
+              </div>
             </div>
           </div>
         @endforeach
@@ -45,5 +45,5 @@
     </div>
   </div>
 
-  <x-confirm-delete-modal open-modal-button-class="delete-file" type="file" />
+  <x-confirm-delete-modal />
 </x-app-layout>
