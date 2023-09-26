@@ -4,7 +4,7 @@
   </x-slot>
 
   <div class="page">
-    <div class="max-w-sm container">
+    <div class="max-w-lg container">
       <div class="panel">
         <x-edit-form
           submit-route="{{ route('files.update', $file->id) }}"
