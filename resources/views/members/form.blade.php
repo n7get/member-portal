@@ -111,7 +111,7 @@
 
 <div class="flex flex-col sm:flex-row gap-6">
   <div class="panel sm:w-1/2 px-2 sm:px-0">
-    <div class="sm:w-1/2 sm:px-8">
+    <div class="sm:px-8">
       <div class="panel-header">
         Courses you have completed
       </div>
@@ -129,7 +129,7 @@
   </div>
 
   <div class="panel sm:w-1/2 px-2 sm:px-0">
-    <div class="sm:w-1/2 sm:px-8">
+    <div class="sm:px-8">
       <div class="panel-header">
         Capabilities
       </div>

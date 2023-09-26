@@ -9,18 +9,28 @@
     <div class="max-w-5xl container">
       @if ($user->needsMember())
         <div class="panel">
-          <div class="flex gap-2 justify-center text-red-800">
+          <div class="flex gap-2 text-red-800">
             <x-icons.exclamation class="h-6 w-6" />
             <div>
               You staii need to submit a membership application.
             </div>
           </div>
-          <div class="flex justify-center mt-4">
+          <div class="flex justify-center mt-6">
             <x-primary-button>
               <a href="{{ route('members.create') }}">
                 Click here to get started.
               </a>
             </x-primary-button>
+          </div>
+        </div>
+      @endif
+      @if ($user->member?->status == 'pending')
+        <div class="panel">
+          <div class="flex gap-2 text-red-800">
+            <x-icons.exclamation class="h-6 w-6" />
+            <div>
+              Your membership application is pending approval.
+            </div>
           </div>
         </div>
       @endif

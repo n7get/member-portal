@@ -3,11 +3,11 @@
       <x-heading-create heading="Create New Member"/>
   </x-slot>
 
-  <div class="page">
-    <div class="max-w-5xl container">
-      <x-create-form submit-route="{{ route('members.store') }}" cancel-route="{{ route('members.cancel') }}">
+  <x-create-form submit-route="{{ route('members.store') }}" cancel-route="{{ route('members.cancel') }}">
+    <div class="page">
+      <div class="max-w-5xl container">
         @include('members.form')
-      </x-create-form>
-    </div>
+      </div>
+    </x-create-form>
   </div>
 </x-app-layout>
