@@ -76,7 +76,7 @@ class MemberController extends Controller
         }
 
         $member = new Member();
-        $member->user_id = $$request->session()->get('user_id');
+        $member->user_id = $request->session()->get('user_id');
 
         $this->memberProvider->persist($request, $member);
 
