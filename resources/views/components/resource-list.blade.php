@@ -11,7 +11,7 @@
           <div class="flex gap-2">
             <div class="w-4/12">
               @role('resources')
-              <a href="{{ route('files.show', $file) }}">
+              <a class="link" href="{{ route('files.show', $file) }}">
                 {{ $file->name }}
               </a>
               @else

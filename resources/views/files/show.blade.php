@@ -13,7 +13,7 @@
         <div class="flex gap-2 mt-2">
           <div>User:</div>
           <div>
-            <a href="{{ route('users.show', $file->user->id) }}" class="text-blue-500">{{ $file->user->name() }}</a>
+            <a class="link" href="{{ route('users.show', $file->user->id) }}">{{ $file->user->name() }}</a>
           </div>
         </div>
         <div class="flex gap-2 mt-2">

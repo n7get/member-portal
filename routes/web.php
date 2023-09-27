@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\activities\ActivityController;
+use App\Http\Controllers\activities\ActivityModeController;
+use App\Http\Controllers\activities\ActivityTypeController;
 use App\Http\Controllers\members\CapabilityController;
 use App\Http\Controllers\members\CertificationController;
 use App\Http\Controllers\DashboardController;
@@ -25,6 +28,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/dashboard');
+});
+
+Route::middleware('auth')->controller(ActivityController::class)->group(function () {
+    Route::put('activities/save/{activity}', 'save')->name('activities.save');
+    Route::get('activities/attending/{activity}', 'attending')->name('activities.attending');
+    Route::get('activities/logs/{activity}', 'logs')->name('activities.logs');
+    Route::post('activities/update/attending/{activity}', 'updateAttending')->name('activities.update.attending');
+    Route::put('activities/update/logs/{activity}', 'updateLogs')->name('activities.update.logs');
+});
+Route::middleware('auth')->resource('activities', ActivityController::class);
+Route::middleware('auth')->controller(ActivityModeController::class)->group(function () {
+    Route::get('activity_modes', 'list')->name('activity_modes.list');
+    Route::put('activity_modes/save', 'save')->name('activity_modes.save');
+});
+Route::middleware('auth')->controller(ActivityTypeController::class)->group(function () {
+    Route::get('activity_types', 'list')->name('activity_types.list');
+    Route::put('activity_types/save', 'save')->name('activity_types.save');
 });
 
 Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

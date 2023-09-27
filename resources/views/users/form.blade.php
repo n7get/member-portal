@@ -60,6 +60,15 @@
   </label>
 </div>
 
+<!-- Activities -->
+<div class="block mt-4">
+  <input type="hidden" name="activities" value="0">
+  <label for="activities" class="inline-flex gap-2 items-center">
+    <input id="activities" name="activities" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" value="1" @checked(old('activities', $activities))>
+    <span class="text-sm text-gray-600">Activities</span>
+  </label>
+</div>
+
 <!-- Resources -->
 <div class="block mt-2">
   <input type="hidden" name="resources" value="0">

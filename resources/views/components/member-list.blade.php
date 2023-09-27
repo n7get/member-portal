@@ -12,13 +12,13 @@
   <div class="border-b-2 sm:border-none flex hover:bg-gray-100">
     <div class="w-4/5 sm:w-11/12 sm:flex">
       <div class="sm:w-2/12 font-extrabold sm:font-normal">
-        <a href="{{ route('members.show', $member->id) }}">{{ $member->callsign }}</a>
+        <a class="link" href="{{ route('members.show', $member->id) }}">{{ $member->callsign }}</a>
       </div>
       <div class="sm:w-4/12 text-sm sm:text-lg sm:truncate">
         {{ $member->first_name }}&nbsp;{{ $member->last_name }}
       </div>
       <div class="sm:w-5/12 text-sm sm:text-lg sm:truncate">
-        <a href="{{ route('users.show', $member->user_id) }}">{{ $member->user->email }}</a>
+        <a class="link" href="{{ route('users.show', $member->user_id) }}">{{ $member->user->email }}</a>
       </div>
       <div class="sm:w-1/12 text-sm sm:text-lg">
         {{ $member->status }}

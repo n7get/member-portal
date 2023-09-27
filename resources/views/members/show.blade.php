@@ -34,7 +34,7 @@
             <div>Email:</div>
             <div>
               @role('admin')
-                <a href="{{ route('users.show', $member->user_id) }}" class="text-blue-500">
+                <a class="link" href="{{ route('users.show', $member->user_id) }}">
               @endrole
                   {{ $member->user->email }}
               @role('admin')

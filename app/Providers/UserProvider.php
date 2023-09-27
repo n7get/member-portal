@@ -22,6 +22,7 @@ class UserProvider extends ServiceProvider
             'admin' => $user->hasRole('admin'),
             'leadership' => $user->hasRole('leadership'),
             'member' => $user->hasRole('member'),
+            'activities' => $user->hasRole('activities'),
             'resources' => $user->hasRole('resources'),
         ];
     }
@@ -50,7 +51,7 @@ class UserProvider extends ServiceProvider
      */
     public function setRoles(UserRequest $request, User $user): void
     {
-        $roles = array_filter($request->only(['admin', 'leadership', 'member', 'resources']), function($value) {
+        $roles = array_filter($request->only(['admin', 'leadership', 'member', 'activities', 'resources']), function($value) {
             return $value != 0;
         });
 

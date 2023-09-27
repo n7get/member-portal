@@ -19,7 +19,7 @@
           <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 hover:bg-gray-100"">
             <div class="w-4/5 sm:w-11/12 sm:flex gap-2">
               <div class="sm:w-4/12 sm:truncate font-extrabold sm:font-normal">
-                <a href="{{ route('files.show', $file->id) }}">{{ $file->name }}</a>
+                <a class="link" href="{{ route('files.show', $file->id) }}">{{ $file->name }}</a>
               </div>
               <div class="sm:w-5/12 text-sm sm:text-lg sm:truncate">{{ $file->description }}</div>
               <div class="sm:w-1/12">

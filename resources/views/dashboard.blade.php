@@ -59,6 +59,68 @@
       @endrole
 
       @role('member')
+        @if (count($unloggedActivityLogs))
+          <div class="panel">
+            <div class="panel-header">Unlogged activities</div>
+            <div class="border-b-2 sm:border-none hidden sm:flex gap-2">
+              <div class="w-5/12 font-bold underline">Description</div>
+              <div class="w-3/12 font-bold underline">Date</div>
+              <div class="w-2/12 font-bold underline">Duration</div>
+              <div class="w-2/12 font-bold underline">Location</div>
+            </div>
+            @foreach ($unloggedActivityLogs as $activity)
+              <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 hover:bg-gray-100"">
+                <div class="sm:w-5/12 sm:truncate font-extrabold sm:font-normal">
+                  <a class="link" href="{{ route('activities.logs', $activity->id) }}">{{ $activity->description }}</a>
+                </div>
+                <div class="sm:w-3/12 text-sm sm:text-lg">{{ $activity->date }}</div>
+                <div class="sm:w-2/12">
+                  <span class="sm:hidden inline-block text-sm mr-1">Duration:</span>
+                  <span class="text-sm sm:text-lg">{{ $activity->duration }}</span>
+                </div>
+                <div class="sm:w-2/12">
+                  <span class="sm:hidden inline-block text-sm mr-1">Location:</span>
+                  <span class="text-sm sm:text-lg">{{ $activity->location }}</span>
+                </div>
+              </div>
+            @endforeach
+          </div>
+        @endif
+
+        @if (count($futureActivities))
+          <div class="panel">
+            <div class="panel-header">Upcoming activities</div>
+            <div class="border-b-2 sm:border-none hidden sm:flex gap-2">
+              <div class="w-4/12 font-bold underline">Description</div>
+              <div class="w-3/12 font-bold underline">Date</div>
+              <div class="w-2/12 font-bold underline">Duration</div>
+              <div class="w-2/12 font-bold underline">Location</div>
+              <div class="w-1/12 font-bold underline">Att</div>
+            </div>
+            @foreach ($futureActivities as $activity)
+              <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 hover:bg-gray-100"">
+                <div class="sm:w-4/12 sm:truncate font-extrabold sm:font-normal">
+                  <a class="link" href="{{ route('activities.attending', $activity->id) }}">{{ $activity->description }}</a>
+                </div>
+                <div class="sm:w-3/12 text-sm sm:text-lg">{{ $activity->date }}</div>
+                <div class="sm:w-2/12">
+                  <span class="sm:hidden inline-block text-sm mr-1">Duration:</span>
+                  <span class="text-sm sm:text-lg">{{ $activity->duration }}</span>
+                </div>
+                <div class="sm:w-2/12">
+                  <span class="sm:hidden inline-block text-sm mr-1">Location:</span>
+                  <span class="text-sm sm:text-lg">{{ $activity->location }}</span>
+                </div>
+                <div class="sm:w-1/12">
+                  @if ($activity->attending)
+                    <x-icons.check class="h-6 w-6" />
+                  @endif
+                </div>
+              </div>
+            @endforeach
+          </div>
+        @endif
+
         @if (count($memberResources))
           <div class="panel">
             <div class="panel-header">

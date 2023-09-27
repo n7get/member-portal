@@ -9,7 +9,7 @@
 
       <div
         x-data="listData()"
-        @add-item.window="addCategory()"
+        @add-category.window="addCategory()"
         @save-category.window="saveCategory()"
         @save-file.window="saveFile()"
         class="panel"
@@ -21,7 +21,7 @@
           </div>
           <div class="w-1/5"></div>
         </div>
-        <x-editable-list-form submitRoute="{{ route('categories.save') }}" add="Add Category">
+        <x-editable-list-form submitRoute="{{ route('categories.save') }}" emit="add-category" add="Add Category">
           <input type="hidden" name="access" value="{{ $access }}" />
           <template x-for="(category, category_index) in categories" :key="category.key">
             <div>
@@ -35,7 +35,7 @@
                     <div class="w-2/3 text-sm sm:text-lg sm:truncate" x-text="category.description"></div>
                 </div>
 
-                <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end categories-center">
+                <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end">
                   <div @click="moveCategoryUp(category_index)" class="cursor-pointer"><x-icons.up-arrow /></div>
                   <div @click="moveCategoryDown(category_index)" class="cursor-pointer"><x-icons.down-arrow /></div>
                   <div @click="editCategory(category_index)" class="cursor-pointer"><x-icons.edit /></div>
@@ -52,7 +52,7 @@
                       <div class="w-2/3 sm:truncate text-sm sm:text-lg" x-text="file.description"></div>
                     </div>
 
-                    <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end categories-center">
+                    <div class="w-1/5 sm:w-1/4 flex gap-2 justify-end">
                       <div @click="moveFileUp(category_index, file_index)" class="cursor-pointer"><x-icons.up-arrow /></div>
                       <div @click="moveFiledown(category_index, file_index)" class="cursor-pointer"><x-icons.down-arrow /></div>
                       <div @click="editFile(category_index, file_index)" class="cursor-pointer"><x-icons.edit /></div>
@@ -66,48 +66,9 @@
       </div>
     </div>
   </div>
-  
-  <x-modal name="category-modal" focusable>
-    <div x-data="categoryModelData()" @edit-category.window="openCategoryModel()" class="panel">
-      <h2 class="text-lg font-medium text-gray-900">Add Other Skills And Equipment</h2>
 
-      <div class="mt-3">
-        <x-input-label for="name">Description:</x-input-label>
-        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" x-model="name" autofocus required />
-      </div>
-
-      <div class="mt-3">
-        <x-input-label for="description">Description:</x-input-label>
-        <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" x-model="description" autofocus required />
-      </div>
-
-      <div class="flex gap-3 justify-end pt-6">
-          <x-primary-button @click="saveCategory()">Save</x-primary-button>
-          <x-secondary-button @click="$dispatch('close')">Cancel</x-secondary-button>
-      </div>
-    </div>
-  </x-modal>
-  
-  <x-modal name="file-modal" focusable>
-    <div x-data="fileModelData()" @edit-file.window="openFileModal()" class="panel">
-      <h2 class="text-lg font-medium text-gray-900">Add Other Skills And Equipment</h2>
-
-      <div class="mt-3">
-        <x-input-label for="id">File Name</x-input-label>
-        <select id="id" class="block mt-1 w-full" name="id" x-model="id">
-          <option value="">Choose One</option>
-          <template x-for="file in all_files">
-            <option :value="file.id" x-bind:selected="name == file.name" x-text="file.name"></option>
-          </template>
-        </select>
-      </div>
-
-      <div class="flex gap-3 justify-end pt-6">
-          <x-primary-button @click="saveFile()">Save</x-primary-button>
-          <x-secondary-button @click="$dispatch('close')">Cancel</x-secondary-button>
-      </div>
-    </div>
-  </x-modal>
+  @include('categories.partials.category-modal')
+  @include('categories.partials.file-modal')
 
   @push('scripts')
     <script>
@@ -115,10 +76,10 @@
         const categories = @json($categories);
         
         categories.forEach(category => {
-          category.key = Math.random();
+          category.key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
           
           category.files.forEach(file => {
-            file.key = Math.random();
+            file.key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
           });
         });
 
@@ -168,7 +129,7 @@
           saveCategory() {
             const category_index = this.$event.detail.category_index;
             const category = this.$event.detail.category;
-            category.key = Math.random();
+            category.key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
             this.categories[category_index] = category;
           },
@@ -220,91 +181,11 @@
 
             const file_index = this.$event.detail.file_index;
             const file = this.$event.detail.file;
-            file.key = Math.random();
+            file.key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
             category.files[file_index] = file;
           },
-
-          openAddModal(category) {
-            console.log('category: ', category);
-            this.$dispatch('open-modal', 'category-modal', category);
-          },
         };
-      }
-
-      function categoryModelData() {
-        return {
-          category_index: -1,
-          id: null,
-          name: null,
-          description: null,
-
-          openCategoryModel() {
-            this.category_index = this.$event.detail.category_index;
-            const category = this.$event.detail.category;
-
-            this.id = category.id;
-            this.name = category.name,
-            this.description = category.description,
-
-            this.$dispatch('open-modal', 'category-modal');
-          },
-
-          saveCategory() {
-            if (! this.name || ! this.description) {
-              return;
-            }
-
-            this.$dispatch('close');
-            this.$dispatch('save-category', {
-              category_index: this.category_index,
-              category: {
-                id: this.id,
-                name: this.name,
-                description: this.description,
-                files: [],
-              },
-            });
-          },
-        }
-      }
-
-      function fileModelData() {
-        const all_files = @json($all_files);
-        
-        return {
-          all_files: all_files,
-          category_index: -1,
-          file_index: -1,
-          id: null,
-          name: null,
-
-          openFileModal() {
-            this.category_index = this.$event.detail.category_index;
-            this.file_index = this.$event.detail.file_index;
-            const file = this.$event.detail.file;
-            
-            this.id = file.id;
-            this.name = file.name,
-
-            this.$dispatch('open-modal', 'file-modal');
-          },
-
-          saveFile() {
-            if (! this.id) {
-              return;
-            }
-
-            const file = this.all_files.find(file => file.id == this.id);
-
-            this.$dispatch('close');
-            this.$dispatch('save-file', {
-              category_index: this.category_index,
-              file_index: this.file_index,
-              file: file,
-            });
-          },
-        }
       }
     </script>
   @endpush

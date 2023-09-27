@@ -69,7 +69,7 @@ class User extends Authenticatable
         if ($this->member) {
             return false;
         }
-        if ($this->hasRole('admin') || $this->hasRole('leadership') || $this->hasRole('resources')) {
+        if ($this->hasRole('admin') || $this->hasRole('leadership') || $this->hasRole('activities') || $this->hasRole('resources')) {
             return false;
         }
         return true;

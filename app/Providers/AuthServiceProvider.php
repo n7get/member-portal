@@ -2,12 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\activities\ActivityMode;
+use App\Models\activities\ActivityType;
 use App\Models\members\Capability;
 use App\Models\members\Certification;
 use App\Models\members\Member;
 use App\Models\members\Other;
 use App\Models\resources\Category;
 use App\Models\resources\File;
+use App\Policies\activities\ActivityModePolicy;
+use App\Policies\activities\ActivityTypePolicy;
 use App\Policies\members\CapabilityPolicy;
 use App\Policies\members\CertificationPolicy;
 use App\Policies\members\MemberPolicy;
@@ -24,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        ActivityMode::class => ActivityModePolicy::class,
+        ActivityType::class => ActivityTypePolicy::class,
         Capability::class => CapabilityPolicy::class,
         Category::class => CategoryPolicy::class,
         Certification::class => CertificationPolicy::class,

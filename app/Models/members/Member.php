@@ -2,6 +2,8 @@
 
 namespace App\Models\members;
 
+use App\Models\activities\ActivityLog;
+use App\Models\activities\ActivityMode;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +40,20 @@ class Member extends Model
     {
         return $this->mailing_address_street && $this->mailing_address_city && $this->mailing_address_state && $this->mailing_address_zip;
     }
-    
+
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class, 'activity_logs')
+            ->using(ActivityLog::class)
+            ->withPivot('attended', 'duration', 'notes', 'activity_mode_id')
+            ->withTimestamps();
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

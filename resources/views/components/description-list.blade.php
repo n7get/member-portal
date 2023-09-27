@@ -13,7 +13,7 @@
       @save-item.window="saveItem()"
       class="panel"
     >
-      <x-editable-list-form submitRoute="{{ $submitRoute }}">
+      <x-editable-list-form submitRoute="{{ $submitRoute }}" emit="add-item" add="Add">
         <div>
           <template x-for="(item, index) in items" :key="item.key">
             <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex hover:bg-gray-100">
@@ -38,7 +38,7 @@
 </div>
 
 <x-modal name="add-modal" focusable>
-  <div x-data="modelData()" @edit-item.window="edit()" class="panel">
+  <div x-data="modelData()" @open-add-modal.window="openAddModal()" class="panel">
     <h2 class="text-lg font-medium text-gray-900">Add Capability</h2>
 
     <div class="mt-3">
@@ -60,7 +60,7 @@
       
       items.forEach((item, index) => {
         item.index = index;
-        item.key = Math.random();
+        item.key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       });
 
       return {
@@ -82,14 +82,14 @@
         },
 
         editItem(index) {
-          this.$dispatch('edit-item', {
+          this.$dispatch('open-add-modal', {
             index: index,
             item: this.item,
           });
         },
 
         addItem() {
-          this.$dispatch('edit-item', {
+          this.$dispatch('open-add-modal', {
             index: this.items.length,
             item: {
               id: 0,
@@ -99,7 +99,7 @@
         },
         saveItem() {
           const item = this.$event.detail.item;
-          item.key = Math.random();
+          item.key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
           if (item.index === -1) {
             this.items.unshift(item);
@@ -110,11 +110,6 @@
         destroyItem(index) {
           this.items.splice(index, 1);
         },
-
-        openAddModal(item) {
-          console.log('item: ', item);
-          this.$dispatch('open-modal', 'add-modal', item);
-        },
       };
     }
 
@@ -124,7 +119,7 @@
         id: null,
         description: null,
 
-        edit() {
+        openAddModal() {
           this.index = this.$event.detail.index;
           
           const item = this.$event.detail.item;

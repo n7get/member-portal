@@ -1,5 +1,6 @@
 @props([
     'submitRoute',
+    'emit' => null,
     'add' => 'Add',
 ])
 
@@ -8,7 +9,9 @@
   {{ method_field('PUT') }}
   {{ $slot }}
   <div class="flex gap-3 justify-end pt-6">
-    <x-add-button x-data="" x-on:click="$dispatch('add-item')">{{ $add }}</x-add-button>
+    @if ($emit)
+      <x-add-button x-data="listData()" @click.prevent="$dispatch('{{ $emit }}')">{{ $add }}</x-add-button>      
+    @endif
     <x-primary-button type="submit">Save</x-primary-button>
   </div>
 </form>

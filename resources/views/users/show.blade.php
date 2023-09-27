@@ -9,7 +9,7 @@
         <div class="flex gap-2 mt-2">
           <div>Email:</div>
           <div class="cursor-pointer">
-            <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+            <a class="link" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
           </div>
         </div>
         @if ($user->member)
@@ -21,7 +21,7 @@
             <div>Callsign:</div>
             <div>
               @role('admin')
-                <a href="{{ route('members.show', $user->member->id) }}" class="text-blue-500">
+                <a class="link" href="{{ route('members.show', $user->member->id) }}">
               @endrole
                   {{ $user->member->callsign }}
               @role('admin')

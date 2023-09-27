@@ -20,17 +20,18 @@
           <div class="w-4/5 sm:w-11/12 sm:flex gap-2">
             <div class="w-1/12 text-sm sm:text-lg">
               {{ $user->hasRole('admin') ? 'A' : '' }}
+              {{ $user->hasRole('activities') ? 'C' : '' }}
               {{ $user->hasRole('leadership') ? 'L' : '' }}
               {{ $user->hasRole('member') ? 'M' : '' }}
               {{ $user->hasRole('resources') ? 'R' : '' }}
             </div>
             <div class="w-5/12 sm:truncate font-extrabold sm:font-normal">
-              <a href="{{ route('users.show', $user->id) }}">{{ $user->email }}</a>
+              <a class="link" href="{{ route('users.show', $user->id) }}">{{ $user->email }}</a>
             </div>
             <div class="w-4/12 text-sm sm:text-lg sm:truncate">{{ $user->name() }}</div>
             <div class="w-2/12 text-sm sm:text-lg truncate">
               @if ($user->member)
-              <a href="{{ route('members.show', $user->member->id) }}">
+              <a class="link" href="{{ route('members.show', $user->member->id) }}">
                 {{ $user->member->callsign }}
               </a>
               @endif
