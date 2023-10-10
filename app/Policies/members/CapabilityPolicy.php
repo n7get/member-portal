@@ -8,8 +8,8 @@ use Illuminate\Auth\Access\Response;
 
 class CapabilityPolicy
 {
-    public function any(User $user)
-    {
-        return $user->can('manage-members');
-    }
+  public function any(User $user)
+  {
+    return $user->can('manage-members');
+  }
 }

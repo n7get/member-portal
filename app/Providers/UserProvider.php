@@ -10,51 +10,51 @@ use Illuminate\Support\Facades\Hash;
 
 class UserProvider extends ServiceProvider
 {
-    public function __construct() {}
+  public function __construct() {}
 
-    /**
-     * Populate the model with the given attributes.
-     */
-    public function populateModel(User $user): array
-    {
-        return [
-            'user' => $user,
-            'admin' => $user->hasRole('admin'),
-            'leadership' => $user->hasRole('leadership'),
-            'member' => $user->hasRole('member'),
-            'activities' => $user->hasRole('activities'),
-            'resources' => $user->hasRole('resources'),
-        ];
+  /**
+   * Populate the model with the given attributes.
+   */
+  public function populateModel(User $user): array
+  {
+    return [
+      'user' => $user,
+      'admin' => $user->hasRole('admin'),
+      'leadership' => $user->hasRole('leadership'),
+      'member' => $user->hasRole('member'),
+      'activities' => $user->hasRole('activities'),
+      'resources' => $user->hasRole('resources'),
+    ];
+  }
+
+  /**
+   * Persist the given request.
+   */
+  public function persist(UserRequest $request, User $user): void
+  {
+    $data = $request->only(['name', 'email', 'email_verified_at', 'remember_token']);
+    if ($request->filled('password')) {
+      $data['password'] = Hash::make($request->password);
     }
 
-    /**
-     * Persist the given request.
-     */
-    public function persist(UserRequest $request, User $user): void
-    {
-        $data = $request->only(['name', 'email', 'email_verified_at', 'remember_token']);
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        if($user->id == null) {
-            $user->create($data);
-        } else {
-            $user->update($data);
-        }
-        
-        $this->setRoles($request, $user);
+    if($user->id == null) {
+      $user->create($data);
+    } else {
+      $user->update($data);
     }
+    
+    $this->setRoles($request, $user);
+  }
 
-    /**
-     * Set the roles for the given request.
-     */
-    public function setRoles(UserRequest $request, User $user): void
-    {
-        $roles = array_filter($request->only(['admin', 'leadership', 'member', 'activities', 'resources']), function($value) {
-            return $value != 0;
-        });
+  /**
+   * Set the roles for the given request.
+   */
+  public function setRoles(UserRequest $request, User $user): void
+  {
+    $roles = array_filter($request->only(['admin', 'leadership', 'member', 'activities', 'resources']), function($value) {
+      return $value != 0;
+    });
 
-        $user->syncRoles(array_keys($roles));
-    }
+    $user->syncRoles(array_keys($roles));
+  }
 }

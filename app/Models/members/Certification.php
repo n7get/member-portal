@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Certification extends Model
 {
-    protected $table = 'member_certifications';
+  protected $table = 'member_certifications';
 
-    protected $fillable = [
-        'description',
-    ];
+  protected $fillable = [
+    'description',
+  ];
 
-    public function members()
-    {
-        return $this->belongsToMany(Member::class, 'members_member_certifications');
-    }
+  public function members()
+  {
+    return $this->belongsToMany(Member::class, 'members_member_certifications');
+  }
 
-    public $timestamps = false; // Indicates that the table doesn't have created_at and updated_at timestamps
+  public $timestamps = false; // Indicates that the table doesn't have created_at and updated_at timestamps
 }

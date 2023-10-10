@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityType extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        'description',
-        'order',
-    ];
+  protected $fillable = [
+    'description',
+    'order',
+  ];
 
-    public function activities()
-    {
-        return $this->hasMany(Activity::class);
-    }
+  public function activities()
+  {
+    return $this->hasMany(Activity::class);
+  }
 }

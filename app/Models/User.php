@@ -12,76 +12,76 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+  use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    protected $table = 'users';
+  protected $table = 'users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'email',
-        'password',
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array<int, string>
+   */
+  protected $fillable = [
+    'email',
+    'password',
+  ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+  /**
+   * The attributes that should be hidden for serialization.
+   *
+   * @var array<int, string>
+   */
+  protected $hidden = [
+    'password',
+    'remember_token',
+  ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+  /**
+   * The attributes that should be cast.
+   *
+   * @var array<string, string>
+   */
+  protected $casts = [
+    'email_verified_at' => 'datetime',
+    'password' => 'hashed',
+  ];
 
-    public function name(): string {
-        if ($this->member) {
-            return $this->member->first_name . ' ' . $this->member->last_name;  
-        }
-        if ($this->hasRole('admin')) {
-            return '(admin)';
-        }
-        if ($this->hasRole('leadership')) {
-            return '(leadership)';
-        }
-        if ($this->hasRole('resources')) {
-            return '(resources)';
-        }
-        if ($this->hasRole('member')) {
-            return '(member)';
-        }
-        return $this->email;
+  public function name(): string {
+    if ($this->member) {
+      return $this->member->first_name . ' ' . $this->member->last_name;  
     }
-
-    function needsMember(): bool {
-        if ($this->member) {
-            return false;
-        }
-        if ($this->hasRole('admin') || $this->hasRole('leadership') || $this->hasRole('activities') || $this->hasRole('resources')) {
-            return false;
-        }
-        return true;
+    if ($this->hasRole('admin')) {
+      return '(admin)';
     }
-
-    public function files()
-    {
-        return $this->hasMany(File::class, 'user_id');
+    if ($this->hasRole('leadership')) {
+      return '(leadership)';
     }
-
-    public function member()
-    {
-        return $this->hasOne(Member::class, 'user_id');
+    if ($this->hasRole('resources')) {
+      return '(resources)';
     }
+    if ($this->hasRole('member')) {
+      return '(member)';
+    }
+    return $this->email;
+  }
+
+  function needsMember(): bool {
+    if ($this->member) {
+      return false;
+    }
+    if ($this->hasRole('admin') || $this->hasRole('leadership') || $this->hasRole('activities') || $this->hasRole('resources')) {
+      return false;
+    }
+    return true;
+  }
+
+  public function files()
+  {
+    return $this->hasMany(File::class, 'user_id');
+  }
+
+  public function member()
+  {
+    return $this->hasOne(Member::class, 'user_id');
+  }
 }
