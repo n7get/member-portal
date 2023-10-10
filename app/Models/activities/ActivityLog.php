@@ -6,6 +6,14 @@ use App\Casts\DurationCast;
 use App\Models\members\Member;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * App\Models\activities\ActivityLog
+ * 
+ * For future Activities, the presence of an activity_log for a given member
+ * indicates that the member is attending the activity.
+ * For past Activities, the activity_log.attended field indicates whether the
+ * member attended the activity.
+ */
 class ActivityLog extends Pivot
 {
   protected $table = 'activity_logs';

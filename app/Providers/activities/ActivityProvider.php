@@ -7,6 +7,7 @@ use App\Models\activities\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class ActivityProvider extends ServiceProvider
@@ -16,20 +17,32 @@ class ActivityProvider extends ServiceProvider
   }
 
   /**
-   * Load all future activities and mark the ones that the user is attending
+   * Load all future activities and mark the ones that the member is attending.
+   * 
    * @param int $memberId The member id
    * @return Collection Activities
    */
   public function loadFutureActivities(int $memberId): Collection
   {
-    $activities = Activity::where('date', '>=', date('Y-m-d'))->get()->sortBy('date');
+    // Get all activities that are in the future and left join the activity_logs
+    // table to see if the current user is attending the activity.  An activity_log
+    // is created when a member indicates they plan to attend an activity.  So if the
+    // activity_log_id is null, the member is not attending the activity.  
 
-    // Add attending field for activities that the user is attending
+    $activities = DB::table('activities')
+      ->where('activities.date', '>=', date('Y-m-d'))
+      ->leftJoin('activity_logs', function ($join) use ($memberId) {
+        $join->on('activities.id', '=', 'activity_logs.activity_id')
+          ->where('activity_logs.member_id', '=', $memberId);
+      })
+      ->select('activities.*', 'activity_logs.id as activity_logs_id')
+      ->get();
 
-    $activityIds = $activities->pluck('id')->toArray();
-    $activityLogIds = $this->loadActivittyLogs($memberId, $activityIds)->pluck('activity_id')->toArray();
-    $activities->each(function ($activity) use ($activityLogIds) {
-      $activity->attending = in_array($activity->id, $activityLogIds);
+    // Make a boolean 'attending' field based on the presence of an activity log
+    // for the current user.  
+
+    $activities->each(function ($activity) {
+      $activity->attending = $activity->activity_logs_id !== null ? 1 : 0;
     });
 
     return $activities;
@@ -43,16 +56,25 @@ class ActivityProvider extends ServiceProvider
    */
   public function loadUnloggedActivityLogs(int $memberId): Collection
   {
-    $activities = Activity::where('date', '<', date('Y-m-d'))
-      ->whereHas('logs', function ($query) {
-        $query->where('attended', false);
+    // Get all activity logs for the current user that are not marked as attended
+
+    $activityLogs = DB::table('activity_logs')
+      ->where('activity_logs.member_id', '=', $memberId)
+      ->where('activity_logs.attended', '=', 0)
+      ->rightJoin('activities', function ($join) {
+        $join->on('activity_logs.activity_id', '=', 'activities.id')
+          ->where('activities.date', '<', date('Y-m-d'));
       })
-      ->with(['logs' => function ($query) use ($memberId) {
-        $query->where('member_id', $memberId);
-      }])
+      ->select(
+        'activity_logs.id as activity_logs_id',
+        'activities.description as activities_description',
+        'activities.date as activities_date',
+        'activities.duration as activities_duration',
+        'activities.location as activities_location'
+      )
       ->get();
 
-    return $activities;
+    return $activityLogs;
   }
 
   public function loadActivittyLogs(int $memberId, array $activityIds)

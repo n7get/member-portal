@@ -68,19 +68,19 @@
               <div class="w-2/12 font-bold underline">Duration</div>
               <div class="w-2/12 font-bold underline">Location</div>
             </div>
-            @foreach ($unloggedActivityLogs as $activity)
+            @foreach ($unloggedActivityLogs as $activityLog)
               <div class="border-b-2 sm:border-none mt-2 sm:mt-0 pb-2 sm:pb-0 flex gap-2 hover:bg-gray-100"">
                 <div class="sm:w-5/12 sm:truncate font-extrabold sm:font-normal">
-                  <a class="link" href="{{ route('activities.logs', $activity->id) }}">{{ $activity->description }}</a>
+                  <a class="link" href="{{ route('activities.logs', $activityLog->activity_logs_id) }}">{{ $activityLog->activities_description }}</a>
                 </div>
-                <div class="sm:w-3/12 text-sm sm:text-lg">{{ $activity->date }}</div>
+                <div class="sm:w-3/12 text-sm sm:text-lg">{{ $activityLog->activities_date }}</div>
                 <div class="sm:w-2/12">
                   <span class="sm:hidden inline-block text-sm mr-1">Duration:</span>
-                  <span class="text-sm sm:text-lg">{{ $activity->duration }}</span>
+                  <span class="text-sm sm:text-lg">{{ $activityLog->activities_duration }}</span>
                 </div>
                 <div class="sm:w-2/12">
                   <span class="sm:hidden inline-block text-sm mr-1">Location:</span>
-                  <span class="text-sm sm:text-lg">{{ $activity->location }}</span>
+                  <span class="text-sm sm:text-lg">{{ $activityLog->activities_location }}</span>
                 </div>
               </div>
             @endforeach
