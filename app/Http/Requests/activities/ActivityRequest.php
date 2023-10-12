@@ -33,7 +33,7 @@ class ActivityRequest extends FormRequest
       ],
       'duration' => ['required',
         function ($attribute, $value, $fail) {
-          if (! preg_match('/^((\d+):)?(\d+):(\d+)$/', $value)) {
+          if (! preg_match('/^((\d+):)?((\d+):)?(\d+)$/', $value)) {
             $fail('The duration must be in the form of dd:hh:mm or hh:mm or mm');
           }
         },
