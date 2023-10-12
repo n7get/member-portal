@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            RoleAndPermissionSeeder::class,
             CapabilitySeeder::class,
             CertificationSeeder::class,
             OtherSeeder::class,
@@ -20,7 +21,6 @@ class DatabaseSeeder extends Seeder
             CapabilityMemberSeeder::class,
             CertificationMemberSeeder::class,
             MemberOtherSeeder::class,
-            RoleAndPermissionSeeder::class,
             ResourceCategorySeeder::class,
             ResourceFileSeeder::class,
             ResourcesCategoriesFilesSeeder::class,

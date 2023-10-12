@@ -28,5 +28,8 @@ class MemberSeeder extends Seeder
                 'status' => $data[2],
             ]);
         }
+
+        $user = User::where('email', 'user2@example.com')->firstOrFail();
+        $user->assignRole('member');
     }
 }
